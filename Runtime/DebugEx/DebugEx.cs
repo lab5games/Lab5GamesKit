@@ -18,7 +18,7 @@ namespace Lab5Games
 
         static DebugEx()
         {
-
+            _logger = new Logger(new LogHandler());
         }
 
         [Conditional("DEBUG_MODE")]
