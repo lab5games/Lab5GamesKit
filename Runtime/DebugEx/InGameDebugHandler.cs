@@ -11,9 +11,8 @@ namespace Lab5Games
         {
             "#FF0066FF",    // Error
             "#FFFF66FF",    // Warning
-            "#9900FFFF",    // Trace
-            "#00FFFFFF"     // Log
-
+            "#66FFFFFF",    // Trace
+            "#FFFFCCFF"     // Log
         };
 
         const string FORMAT = "<color={0}>[{1}] {2}</color>";

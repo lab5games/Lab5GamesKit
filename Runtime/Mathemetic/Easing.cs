@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Lab5Games.Math
 {
-    public enum EEaseType
+    public enum EEaseTypes
     {
         Linear          = 0,
 
@@ -46,7 +46,7 @@ namespace Lab5Games.Math
 
     public static class Easing
     {
-        public static Func<float, float> Function(EEaseType type)
+        public static Func<float, float> Function(EEaseTypes type)
         {
             return _funcs[(int)type];
         }

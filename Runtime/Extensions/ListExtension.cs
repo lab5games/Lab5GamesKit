@@ -224,7 +224,7 @@ namespace Lab5Games
             while (n > 1)
             {
                 n--;
-                int k = RandomEx.Range(0, n + 1);
+                int k = UnityEngine.Random.Range(0, n + 1);
                 T val = list[k];
                 list[k] = list[n];
                 list[n] = val;
@@ -264,7 +264,7 @@ namespace Lab5Games
         {
             if (list != null)
             {
-                int indx = RandomEx.Range(0, list.Count);
+                int indx = UnityEngine.Random.Range(0, list.Count);
                 if (list.Count > indx)
                     return list[indx];
             }
