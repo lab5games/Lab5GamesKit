@@ -142,8 +142,6 @@ namespace Lab5Games
 
         private void Start()
         {
-            _strBuilder = new StringBuilder();
-            _logs = new Queue<string>(MAX_LOGS);
             _guiSkin = Resources.Load<GUISkin>("InGameDebugConsole");
         }
 
