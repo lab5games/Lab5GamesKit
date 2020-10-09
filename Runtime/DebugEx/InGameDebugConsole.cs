@@ -25,9 +25,14 @@ namespace Lab5Games
             "#FFFFCCFF"     // Log
         };
 
+        const float SPACE = 10f;
+        const float BOX_HEIGHT = 300;
+        const float LABEL_HEIGHT = 50;
+        const float ENTER_BTN_WIDTH = 240f;
+
         const int MAX_LOGS = 30;
 
-        const string FORMAT = "<color={0}>[{1}] {2}</color>";
+        const string FORMAT = "<color={0}>{1}</color>";
 
 
         public void Log(ELogType type, string log)
@@ -36,7 +41,6 @@ namespace Lab5Games
 
             _strBuilder.AppendFormat(FORMAT,
                 LOG_COLORS[(int)type],
-                DateTime.Now.ToString("HH:mm:ss"),
                 log);
 
 
@@ -88,32 +92,33 @@ namespace Lab5Games
         {
             GUI.skin = _guiSkin;
 
-            float y = 0f;
+            float x = Screen.width > Screen.height ? Screen.safeArea.x : SPACE;
+            float y = Screen.width < Screen.height ? Screen.safeArea.y : 0;
 
             // logs
-            GUI.Box(new Rect(0, y, Screen.width, 300), "");
+            GUI.Box(new Rect(x, y, Screen.width-x-x, BOX_HEIGHT), "");
 
-            Rect viewport = new Rect(0, y, Screen.width - 30, 50 * _logs.Count);
+            Rect viewport = new Rect(x, y, Screen.width*1.5f, LABEL_HEIGHT * _logs.Count);
 
-            _scroll = GUI.BeginScrollView(new Rect(0, y + 5f, Screen.width, 280), _scroll, viewport);
+            _scroll = GUI.BeginScrollView(new Rect(x, y+5, Screen.width-x-x, BOX_HEIGHT), _scroll, viewport);
 
             int i = 0;
-            foreach (var log in _logs)
+            foreach(var log in _logs)
             {
-                Rect rect = new Rect(5, 50 * i, viewport.width - 100, 50);
+                Rect rect = new Rect(x, LABEL_HEIGHT * i + y, viewport.width, LABEL_HEIGHT);
                 GUI.Label(rect, log);
-
+                
                 i++;
             }
 
             GUI.EndScrollView();
 
-            y += 310;
+            y += (BOX_HEIGHT + SPACE);
 
             // input
-            _userInput = GUI.TextField(new Rect(5f, y + 5f, Screen.width - 270f, 50f), _userInput);
+            _userInput = GUI.TextField(new Rect(x, y + 5f, Screen.width - x - x - SPACE - ENTER_BTN_WIDTH, 50f), _userInput);
 
-            if (GUI.Button(new Rect(Screen.width - 250, y, 240, 60), "ENTER"))
+            if (GUI.Button(new Rect(Screen.width - x - ENTER_BTN_WIDTH, y, ENTER_BTN_WIDTH, 60), "ENTER"))
             {
                 OnReturn();
             }
