@@ -92,8 +92,17 @@ namespace Lab5Games
         {
             GUI.skin = _guiSkin;
 
-            float x = Screen.width > Screen.height ? Screen.safeArea.x : SPACE;
-            float y = Screen.width < Screen.height ? Screen.safeArea.y : 0;
+            float x = 0;
+            float y = 0;
+
+#if UNITY_IOS
+            x = Screen.width > Screen.height ? Screen.safeArea.x : SPACE;
+            y = Screen.width < Screen.height ? Screen.safeArea.y : 0;
+            
+#else
+            x = Screen.width > Screen.height ? SPACE * 15 : SPACE * 2;
+            y = Screen.width < Screen.height ? SPACE * 15 : 0;
+#endif
 
             // logs
             GUI.Box(new Rect(x, y, Screen.width-x-x, BOX_HEIGHT), "");

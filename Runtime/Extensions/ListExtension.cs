@@ -150,7 +150,7 @@ namespace Lab5Games
 
             return success;
         }
-
+        
         public static bool RemoveChecking<T>(this IList<T> list, T obj)
         {
             if (list != null &&
@@ -179,7 +179,7 @@ namespace Lab5Games
 
             return false;
         }
-
+        // 聯集
         public static void MergeList<T>(this IList<T> list, IList<T> other)
         {
             if (list != null && other != null)
@@ -188,7 +188,7 @@ namespace Lab5Games
                     list.AddChecking(other[i]);
             }
         }
-
+        // 差集
         public static void UnmergeList<T>(this IList<T> list, IList<T> other)
         {
             if (list != null && other != null)
