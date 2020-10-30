@@ -15,7 +15,7 @@ namespace Lab5Games
         private Vector2 _scroll;
 
         private StringBuilder _strBuilder = new StringBuilder();
-        private Queue<string> _logs = new Queue<string>(MAX_LOGS);
+        private Queue<string> _logs = new Queue<string>(MAX_LINES);
 
         readonly string[] LOG_COLORS = new string[]
         {
@@ -26,11 +26,11 @@ namespace Lab5Games
         };
 
         const float SPACE = 10f;
-        const float BOX_HEIGHT = 300;
-        const float LABEL_HEIGHT = 50;
+        const float BOX_HEIGHT = 350;
+        const float LINE_HEIGHT = 55;
         const float ENTER_BTN_WIDTH = 240f;
 
-        const int MAX_LOGS = 30;
+        const int MAX_LINES = 30;
 
         const string FORMAT = "<color={0}>{1}</color>";
 
@@ -56,12 +56,14 @@ namespace Lab5Games
         {
             showConsole = true;
 
-            if(_logs.Count >= MAX_LOGS)
+            if(_logs.Count >= MAX_LINES)
             {
                 _logs.Dequeue();
             }
 
             _logs.Enqueue(log);
+
+            _scroll.y = Mathf.Infinity;
         }
 
         private void OnReturn()
@@ -92,33 +94,25 @@ namespace Lab5Games
         {
             GUI.skin = _guiSkin;
 
-            float x = 0;
-            float y = 0;
-
-#if UNITY_IOS
-            x = Screen.width > Screen.height ? Screen.safeArea.x : SPACE;
-            y = Screen.width < Screen.height ? Screen.safeArea.y : 0;
-            
-#else
-            x = Screen.width > Screen.height ? SPACE * 15 : SPACE * 2;
-            y = Screen.width < Screen.height ? SPACE * 15 : 0;
-#endif
+            float x = Screen.width > Screen.height ? SPACE * 15 : SPACE * 2.5f;
+            float y = Screen.height - BOX_HEIGHT - BOX_HEIGHT * 0.3333f; ;
 
             // logs
-            GUI.Box(new Rect(x, y, Screen.width-x-x, BOX_HEIGHT), "");
+            GUI.Box(new Rect(x, y, Screen.width - x - x, BOX_HEIGHT), "");
 
-            Rect viewport = new Rect(x, y, Screen.width*1.5f, LABEL_HEIGHT * _logs.Count);
+            Rect viewport = new Rect(x, y, Screen.width * 1.5f, LINE_HEIGHT * _logs.Count);
 
-            _scroll = GUI.BeginScrollView(new Rect(x, y+5, Screen.width-x-x, BOX_HEIGHT), _scroll, viewport);
+            _scroll = GUI.BeginScrollView(new Rect(x, y + 5, Screen.width - x - x, BOX_HEIGHT), _scroll, viewport);
 
             int i = 0;
-            foreach(var log in _logs)
+            foreach (var log in _logs)
             {
-                Rect rect = new Rect(x, LABEL_HEIGHT * i + y, viewport.width, LABEL_HEIGHT);
+                Rect rect = new Rect(x, LINE_HEIGHT * i + y, viewport.width, LINE_HEIGHT);
                 GUI.Label(rect, log);
-                
+
                 i++;
             }
+
 
             GUI.EndScrollView();
 

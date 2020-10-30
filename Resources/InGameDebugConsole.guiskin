@@ -269,7 +269,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 36
+    m_FontSize: 45
     m_FontStyle: 0
     m_Alignment: 3
     m_WordWrap: 1
