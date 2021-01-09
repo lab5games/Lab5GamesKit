@@ -19,6 +19,16 @@ namespace Lab5Games
         static DebugEx()
         {
             _logger = new Logger(new LogHandler());
+
+            UnityEngine.Application.logMessageReceived += OnLogMessageReceived;
+        }
+
+        private static void OnLogMessageReceived(string condition, string stackTrace, UnityEngine.LogType type)
+        {
+            if(type == UnityEngine.LogType.Exception)
+            {
+                Log(ELogType.Error, condition);
+            }
         }
 
         [Conditional("DEBUG_MODE")]
