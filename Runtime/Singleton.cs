@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Lab5Games
+namespace Lab5Games.Lab5GamesKit
 {
     public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace Lab5Games
+namespace Lab5Games.Lab5GamesKit
 {
     public interface ILogHandler
     {

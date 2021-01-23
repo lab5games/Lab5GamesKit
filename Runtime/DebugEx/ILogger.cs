@@ -1,5 +1,5 @@
 ﻿
-namespace Lab5Games
+namespace Lab5Games.Lab5GamesKit
 {
     public interface ILogger
     {

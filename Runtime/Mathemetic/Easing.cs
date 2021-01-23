@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Lab5Games.Math
+namespace Lab5Games.Lab5GamesKit
 {
     public enum EEaseTypes
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace Lab5Games
+namespace Lab5Games.Lab5GamesKit
 {
     public enum ELogType
     {

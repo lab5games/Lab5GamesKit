@@ -1,6 +1,6 @@
 ﻿
 
-namespace Lab5Games
+namespace Lab5Games.Lab5GamesKit
 {
     public static class EqualityExtension
     {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Lab5Games.Math
+namespace Lab5Games.Lab5GamesKit
 {
     public static class BezierCurve
     {

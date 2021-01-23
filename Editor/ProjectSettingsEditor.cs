@@ -3,7 +3,7 @@ using UnityEditor;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Lab5Games.Editor
+namespace Lab5Games.Lab5GamesKitEditor
 {
     public class ProjectSettingsEditor : EditorWindow
     {
