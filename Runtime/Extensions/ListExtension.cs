@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Lab5Games.Lab5GamesKit
+namespace Lab5Games
 {
     public static class ListExtension
     {

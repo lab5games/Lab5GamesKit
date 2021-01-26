@@ -3,7 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Lab5Games.Lab5GamesKit
+namespace Lab5Games
 {
     public class InGameDebugConsole : MonoBehaviour, ILogHandler
     {

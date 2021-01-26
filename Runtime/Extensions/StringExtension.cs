@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Lab5Games.Lab5GamesKit
+namespace Lab5Games
 {
     public static class StringExtension
     {
