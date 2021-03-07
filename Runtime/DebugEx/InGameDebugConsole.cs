@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Lab5Games
 {
-    public class InGameDebugConsole : MonoBehaviour, ILogHandler
+    public class InGameDebugConsole : Singleton<InGameDebugConsole>, ILogHandler
     {
         public static bool consoleEnabled = true;
         public static bool showConsole = false;
@@ -125,22 +125,6 @@ namespace Lab5Games
             {
                 OnReturn();
             }
-        }
-
-        public static InGameDebugConsole CreateInstance()
-        {
-            
-            InGameDebugConsole instance = null;
-
-            instance = FindObjectOfType<InGameDebugConsole>();
-
-            if(instance == null)
-            {
-                GameObject go = new GameObject("InGameDebugHandler");
-                instance = go.AddComponent<InGameDebugConsole>();
-            }
-
-            return instance;
         }
 
         private void Awake()
