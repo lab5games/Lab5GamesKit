@@ -27,7 +27,7 @@ namespace Lab5Games
 
         const float SPACE = 10f;
         const float BOX_HEIGHT = 350;
-        const float LINE_HEIGHT = 55;
+        const float LINE_HEIGHT = 60;
         const float ENTER_BTN_WIDTH = 240f;
 
         const int MAX_LINES = 30;
@@ -109,6 +109,7 @@ namespace Lab5Games
             {
                 Rect rect = new Rect(x, LINE_HEIGHT * i + y, viewport.width, LINE_HEIGHT);
                 GUI.Label(rect, log);
+                //GUI.TextField(rect, log);
 
                 i++;
             }
