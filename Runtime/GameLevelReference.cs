@@ -8,11 +8,11 @@ using UnityEngine.SceneManagement;
 
 namespace Lab5Games
 {
-    [CreateAssetMenu(fileName ="New Level Reference", menuName ="Lab5Games/Level Reference")]
-    public class LevelReference : ScriptableObject
+    [CreateAssetMenu(fileName ="New Game Level Reference", menuName ="Lab5Games/Game Level Reference")]
+    public class GameLevelReference : ScriptableObject
     {
         [System.Serializable]
-        public class Level
+        public class GameLevel
         {
             [SerializeField] string sceneName;
             [SerializeField] string sceneGUID;
@@ -55,7 +55,7 @@ namespace Lab5Games
                 return;
             }
 
-            _levels = new Level[_sceneAssets.Length];
+            _levels = new GameLevel[_sceneAssets.Length];
 
             for (int i = 0; i < _sceneAssets.Length; i++)
             {
@@ -64,7 +64,7 @@ namespace Lab5Games
                 string sceneName = Path.GetFileNameWithoutExtension(path);
                 int sceneBuildIndex = SceneUtility.GetBuildIndexByScenePath(path);
 
-                Level newLevel = new Level();
+                GameLevel newLevel = new GameLevel();
                 newLevel.GUID = guid;
                 newLevel.Path = path;
                 newLevel.SceneName = sceneName;
@@ -72,7 +72,7 @@ namespace Lab5Games
 
                 _levels[i] = newLevel;
 
-                DebugEx.Log(ELogType.Trace, $"Build level...({path}).");
+                DebugEx.Log(ELogType.Trace, $"build game level...({path}).");
             }
 
             EditorUtility.SetDirty(this);
@@ -81,9 +81,9 @@ namespace Lab5Games
         }
 #endif
 
-        [SerializeField] Level[] _levels;
+        [SerializeField] GameLevel[] _levels;
 
-        public Level[] levels
+        public GameLevel[] levels
         {
             get { return _levels; }
         }
