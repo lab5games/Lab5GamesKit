@@ -7,8 +7,7 @@ namespace Lab5Games
 {
     public class InGameDebugConsole : Singleton<InGameDebugConsole>, ILogHandler
     {
-        public static bool consoleEnabled = true;
-        public static bool showConsole = false;
+        public static bool showConsole = true;
 
         private string _userInput;
         private GUISkin _guiSkin;
@@ -85,7 +84,6 @@ namespace Lab5Games
             {
                 case "clear": _logs.Clear(); break;
                 case "close": showConsole = false; break;
-                case "disable": consoleEnabled = false; break;
             }
 
         }
@@ -140,7 +138,7 @@ namespace Lab5Games
 
         private void OnGUI()
         {
-            if(consoleEnabled && showConsole)
+            if(showConsole)
             {
                 DrawConsole();
             }

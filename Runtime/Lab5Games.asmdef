@@ -1,5 +1,6 @@
 {
-    "name": "Lab5GamesKit",
+    "name": "Lab5Games",
+    "rootNamespace": "",
     "references": [],
     "includePlatforms": [
         "Android",
