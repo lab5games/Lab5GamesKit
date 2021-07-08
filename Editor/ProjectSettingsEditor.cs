@@ -7,7 +7,7 @@ namespace Lab5Games.Editor
 {
     public class ProjectSettingsEditor : EditorWindow
     {
-        [MenuItem("Tools/Lab5Games/Project Settings", priority =0)]
+        [MenuItem("Lab5Games/Project Settings", priority =0)]
         private static void OpenWindow()
         {
             EditorWindow.GetWindow<ProjectSettingsEditor>("ProjectSettings", true);
