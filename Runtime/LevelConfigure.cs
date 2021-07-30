@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Unity.Collections;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -8,11 +9,11 @@ using UnityEngine.SceneManagement;
 
 namespace Lab5Games
 {
-    [CreateAssetMenu(fileName ="New Game Level Reference", menuName ="Lab5Games/Game Level Reference")]
-    public class GameLevelReference : ScriptableObject
+    [CreateAssetMenu(fileName ="New Level Configure", menuName ="Lab5Games/Level Configure")]
+    public class LevelConfigure : ScriptableObject
     {
         [System.Serializable]
-        public class GameLevel
+        public class Level
         {
             [SerializeField] string sceneName;
             [SerializeField] string sceneGUID;
@@ -46,31 +47,36 @@ namespace Lab5Games
 
 
 #if UNITY_EDITOR
-        [SerializeField] SceneAsset[] _sceneAssets;
+        [SerializeField] SceneAsset[] _scenes;
 
         public void BuildLevels()
         {
-            if (_sceneAssets == null || _sceneAssets.Length <= 0)
+            if (_scenes == null || _scenes.Length <= 0)
             {
-                return;
+                throw new System.Exception("No scenes in this LevelConfigure");
             }
 
-            _levels = new GameLevel[_sceneAssets.Length];
+            list = new Level[_scenes.Length];
 
-            for (int i = 0; i < _sceneAssets.Length; i++)
+            for (int i = 0; i < _scenes.Length; i++)
             {
-                string path = AssetDatabase.GetAssetPath(_sceneAssets[i]);
+                string path = AssetDatabase.GetAssetPath(_scenes[i]);
                 string guid = AssetDatabase.AssetPathToGUID(path);
                 string sceneName = Path.GetFileNameWithoutExtension(path);
                 int sceneBuildIndex = SceneUtility.GetBuildIndexByScenePath(path);
 
-                GameLevel newLevel = new GameLevel();
+                if(sceneBuildIndex == -1)
+                {
+                    throw new System.Exception($"Please add scene({path}) to the BuildSettings(File -> Build Settings -> Scenes in Build).");
+                }
+
+                Level newLevel = new Level();
                 newLevel.GUID = guid;
                 newLevel.Path = path;
                 newLevel.SceneName = sceneName;
                 newLevel.SceneBuildIndex = sceneBuildIndex;
 
-                _levels[i] = newLevel;
+                list[i] = newLevel;
 
                 DebugEx.Log(ELogType.Trace, $"build game level...({path}).");
             }
@@ -81,11 +87,7 @@ namespace Lab5Games
         }
 #endif
 
-        [SerializeField] GameLevel[] _levels;
-
-        public GameLevel[] levels
-        {
-            get { return _levels; }
-        }
+        [Attributes.ReadOnly]
+        public Level[] list;
     }
 }

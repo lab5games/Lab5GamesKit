@@ -3,8 +3,8 @@ using UnityEditor;
 
 namespace Lab5Games.Editor
 {
-    [CustomEditor(typeof(GameLevelReference))]
-    public class LevelReferenceInspector : UnityEditor.Editor
+    [CustomEditor(typeof(LevelConfigure))]
+    public class LevelConfigureInspector : UnityEditor.Editor
     {
         
         public override void OnInspectorGUI()
@@ -15,7 +15,7 @@ namespace Lab5Games.Editor
 
             if (GUILayout.Button("Build Levels"))
             {
-                (target as GameLevelReference).BuildLevels();
+                (target as LevelConfigure).BuildLevels();
             }
         }
     }

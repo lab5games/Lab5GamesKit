@@ -7,19 +7,47 @@ namespace Lab5Games.Editor
 {
     public class ProjectSettingsEditor : EditorWindow
     {
-        [MenuItem("Lab5Games/Project Settings", priority =0)]
+        [MenuItem("Lab5Games/Project Settings", priority = 0)]
         private static void OpenWindow()
         {
             EditorWindow.GetWindow<ProjectSettingsEditor>("ProjectSettings", true);
         }
 
-        string _projectName;
+        string _projectName = "";
+        bool _debugMode = false;
+
+
+        readonly string[] SUB_FOLDERS = new string[]
+        {
+            "Animations",
+            "Animators",
+            "Scripts",
+            "Scenes",
+            "Scriptables",
+            "Settings",
+            "Shaders",
+            "Prefabs",
+            "Materials",
+            "Textures",
+            "Sprites"
+        };
+
+        const string DEBUG_MODE = "DEBUG_MODE";
+
+        private void OnEnable()
+        {
+            _debugMode = IsDebugMode();
+        }
 
         private void OnGUI()
         {
-            _projectName = EditorGUILayout.TextField("Project", _projectName);
-
             EditorGUILayout.Space();
+            _projectName = EditorGUILayout.TextField("Project Name", _projectName);
+            _debugMode = EditorGUILayout.Toggle("Debug Mode", _debugMode);
+
+            ToggleDebugMode(_debugMode);
+
+            EditorGUILayout.Space(20);
             if(GUILayout.Button("New Project"))
             {
                 NewProject();
@@ -36,7 +64,7 @@ namespace Lab5Games.Editor
 
             if(AssetDatabase.IsValidFolder(root))
             {
-                throw new System.Exception($"The project [{_projectName}] has been existed.");
+                throw new System.Exception($"The project folder [{_projectName}] has been existed.");
             }
             else
             {
@@ -44,39 +72,44 @@ namespace Lab5Games.Editor
                 AssetDatabase.CreateFolder("Assets", _projectName);
 
                 // sub folders
-                string[] subFolders = new string[]
+                for(int i=0; i<SUB_FOLDERS.Length; i++)
                 {
-                    "Animations",
-                    "Animators",
-                    "Scripts",
-                    "Scenes",
-                    "Scriptables",
-                    "Settings",
-                    "Shaders",
-                    "Prefabs",
-                    "Materials",
-                    "Textures",
-                    "Sprites"
-                };
-
-                for(int i=0; i<subFolders.Length; i++)
-                {
-                    AssetDatabase.CreateFolder(root, subFolders[i]);
+                    AssetDatabase.CreateFolder(root, SUB_FOLDERS[i]);
                 }
 
-                // add define symbols
-                string[] symbols = new string[]
-                {
-                    "DEBUG_MODE"
-                };
+                BuildVersionProcess.ResetBuildVersion();
+            }
+        }
 
-                string definesString = PlayerSettings.GetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup);
-                List<string> allDefines = definesString.Split(';').ToList();
-                allDefines.AddRange(symbols.Except(allDefines));
-                PlayerSettings.SetScriptingDefineSymbolsForGroup(
+        private void ToggleDebugMode(bool toggle)
+        {
+            
+
+            string definesString = PlayerSettings.GetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup);
+            
+            List<string> allDefines = definesString.Split(';').ToList();
+            
+            if(toggle)
+            {
+                if (!allDefines.Contains(DEBUG_MODE)) allDefines.Add(DEBUG_MODE);
+            }
+            else
+            {
+                if (allDefines.Contains(DEBUG_MODE)) allDefines.Remove(DEBUG_MODE);
+            }
+
+            PlayerSettings.SetScriptingDefineSymbolsForGroup(
                     EditorUserBuildSettings.selectedBuildTargetGroup,
                     string.Join(";", allDefines.ToArray()));
-            }
+        }
+
+        bool IsDebugMode()
+        {
+            string definesString = PlayerSettings.GetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup);
+
+            List<string> allDefines = definesString.Split(';').ToList();
+
+            return allDefines.Contains(DEBUG_MODE);
         }
     }
 }
