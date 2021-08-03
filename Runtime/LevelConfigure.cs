@@ -56,7 +56,7 @@ namespace Lab5Games
                 throw new System.Exception("No scenes in this LevelConfigure");
             }
 
-            list = new Level[_scenes.Length];
+            levels = new Level[_scenes.Length];
 
             for (int i = 0; i < _scenes.Length; i++)
             {
@@ -76,7 +76,7 @@ namespace Lab5Games
                 newLevel.SceneName = sceneName;
                 newLevel.SceneBuildIndex = sceneBuildIndex;
 
-                list[i] = newLevel;
+                levels[i] = newLevel;
 
                 DebugEx.Log(ELogType.Trace, $"build game level...({path}).");
             }
@@ -88,6 +88,6 @@ namespace Lab5Games
 #endif
 
         [Attributes.ReadOnly]
-        public Level[] list;
+        public Level[] levels;
     }
 }
