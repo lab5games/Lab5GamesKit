@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Lab5Games
 {
-    public class InGameDebugConsole : Singleton<InGameDebugConsole>, ILogHandler
+    public class InGameDebugConsole : ISingleton<InGameDebugConsole>, ILogHandler
     {
         public static bool showConsole = true;
 

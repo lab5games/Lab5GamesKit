@@ -2,11 +2,11 @@
 
 namespace Lab5Games
 {
-    public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
+    public abstract class ISingleton<T> : MonoBehaviour where T : MonoBehaviour
     {
-        private static T _instance = null;
+        private static T _singleton = null;
 
-        public static T Instance
+        public static T Singleton
         {
             get
             {
@@ -17,21 +17,21 @@ namespace Lab5Games
                     return null;
                 }
 
-                if (_instance != null)
+                if (_singleton != null)
                 {
-                    return _instance;
+                    return _singleton;
                 }
 
-                _instance = FindObjectOfType<T>();
+                _singleton = FindObjectOfType<T>();
 
-                if(_instance != null)
+                if(_singleton != null)
                 {
-                    return _instance;
+                    return _singleton;
                 }
 
                 CreateInstance();
 
-                return _instance;
+                return _singleton;
             }
         }
 
@@ -41,17 +41,22 @@ namespace Lab5Games
             go.name = "[Singleton] " + typeof(T).Name;
             go.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
 
-            _instance = go.AddComponent<T>();
+            _singleton = go.AddComponent<T>();
         }
+        
+        public virtual bool IsPersistent { get { return true; } }
 
-        private static void DestroyInstance()
+        private void Awake()
         {
-            _instance = null;
-        }
+            if (_singleton != null && _singleton != this)
+            {
+                Destroy(gameObject);
+            }
 
-        protected virtual void OnDestroy()
-        {
-            DestroyInstance();
+            if (IsPersistent)
+            {
+                DontDestroyOnLoad(gameObject);
+            }
         }
 
         private static bool _applicationIsQuitting = false;
