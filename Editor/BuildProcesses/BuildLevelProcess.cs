@@ -14,6 +14,11 @@ namespace Lab5Games.Editor
         {
             LevelConfigure levelConfig = Resources.Load<LevelConfigure>("LevelConfigure");
 
+            if(levelConfig == null)
+            {
+                throw new Exception("Not found the configure file(Resources/LevelConfigure)");
+            }
+
             try
             {
                 if (levelConfig != null)

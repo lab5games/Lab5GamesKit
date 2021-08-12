@@ -53,7 +53,7 @@ namespace Lab5Games
         {
             if (_scenes == null || _scenes.Length <= 0)
             {
-                throw new System.Exception("No scenes in this LevelConfigure");
+                throw new System.Exception("No scenes in this LevelConfigure(Resources/LevelConfigure)");
             }
 
             levels = new Level[_scenes.Length];
@@ -78,7 +78,7 @@ namespace Lab5Games
 
                 levels[i] = newLevel;
 
-                DebugEx.Log(ELogType.Trace, $"build game level...({path}).");
+                DebugEx.Log(ELogType.Trace, $"building game level({path})");
             }
 
             EditorUtility.SetDirty(this);

@@ -30,6 +30,8 @@ namespace Lab5Games.Editor
                 {
                     PlayerSettings.Android.bundleVersionCode = build;
                 }
+
+                DebugEx.Log(ELogType.Warning, $"build version {major}.{minor}.{build}");
             }
             catch(Exception e)
             {
