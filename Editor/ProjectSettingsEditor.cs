@@ -13,8 +13,9 @@ namespace Lab5Games.Editor
             EditorWindow.GetWindow<ProjectSettingsEditor>("ProjectSettings", true);
         }
 
-        string _projectName = "";
+        string _projectName = "New Project";
         bool _debugMode = false;
+        bool _autoBuildVersion = false;
 
 
         readonly string[] SUB_FOLDERS = new string[]
@@ -32,28 +33,30 @@ namespace Lab5Games.Editor
             "Sprites"
         };
 
-        const string DEBUG_MODE = "DEBUG_MODE";
+        const string DEBUG_MODE_SCRIPT_DEFINE_SYMBOL = "DEBUG_MODE";
+        const string DEBUG_MODE_PLAYERPREFS_KEY = "debug_mode";
+        const string AUTO_BUILD_VERSION_PLAYERPRES_KEY = "auto_build_version";
 
-        private void OnEnable()
+        void OnEnable()
         {
             _debugMode = IsDebugMode();
+            _autoBuildVersion = IsAutoBuildVersion();
         }
 
-        private void OnGUI()
+        void OnGUI()
         {
             EditorGUILayout.Space();
-            _projectName = EditorGUILayout.TextField("Project Name", _projectName);
-            _debugMode = EditorGUILayout.Toggle("Debug Mode", _debugMode);
 
-            ToggleDebugMode(_debugMode);
+            _projectName = EditorGUILayout.TextField("Project Name", _projectName);
+            ToggleDebugMode(EditorGUILayout.Toggle("Debug Mode", _debugMode));
+            ToggleAutoBuildVersion(EditorGUILayout.Toggle("Auto Build Version", _autoBuildVersion));
 
             EditorGUILayout.Space(20);
-            if(GUILayout.Button("New Project"))
+            if(GUILayout.Button("New Porject"))
             {
                 NewProject();
             }
         }
-
 
         private void NewProject()
         {
@@ -62,7 +65,7 @@ namespace Lab5Games.Editor
 
             string root = "Assets/" + _projectName;
 
-            if(AssetDatabase.IsValidFolder(root))
+            if (AssetDatabase.IsValidFolder(root))
             {
                 throw new System.Exception($"The project folder [{_projectName}] has been existed.");
             }
@@ -72,7 +75,7 @@ namespace Lab5Games.Editor
                 AssetDatabase.CreateFolder("Assets", _projectName);
 
                 // sub folders
-                for(int i=0; i<SUB_FOLDERS.Length; i++)
+                for (int i = 0; i < SUB_FOLDERS.Length; i++)
                 {
                     AssetDatabase.CreateFolder(root, SUB_FOLDERS[i]);
                 }
@@ -83,33 +86,47 @@ namespace Lab5Games.Editor
 
         private void ToggleDebugMode(bool toggle)
         {
-            
-
-            string definesString = PlayerSettings.GetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup);
-            
-            List<string> allDefines = definesString.Split(';').ToList();
-            
-            if(toggle)
+            if (_debugMode != toggle)
             {
-                if (!allDefines.Contains(DEBUG_MODE)) allDefines.Add(DEBUG_MODE);
-            }
-            else
-            {
-                if (allDefines.Contains(DEBUG_MODE)) allDefines.Remove(DEBUG_MODE);
-            }
+                _debugMode = toggle;
+                PlayerPrefs.SetInt(DEBUG_MODE_PLAYERPREFS_KEY, toggle ? 1 : 0);
 
-            PlayerSettings.SetScriptingDefineSymbolsForGroup(
-                    EditorUserBuildSettings.selectedBuildTargetGroup,
-                    string.Join(";", allDefines.ToArray()));
+                string definesString = PlayerSettings.GetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup);
+
+                List<string> allDefines = definesString.Split(';').ToList();
+
+                if (toggle)
+                {
+                    if (!allDefines.Contains(DEBUG_MODE_SCRIPT_DEFINE_SYMBOL)) allDefines.Add(DEBUG_MODE_SCRIPT_DEFINE_SYMBOL);
+                }
+                else
+                {
+                    if (allDefines.Contains(DEBUG_MODE_SCRIPT_DEFINE_SYMBOL)) allDefines.Remove(DEBUG_MODE_SCRIPT_DEFINE_SYMBOL);
+                }
+
+                PlayerSettings.SetScriptingDefineSymbolsForGroup(
+                        EditorUserBuildSettings.selectedBuildTargetGroup,
+                        string.Join(";", allDefines.ToArray()));
+            }
         }
 
-        bool IsDebugMode()
+        private void ToggleAutoBuildVersion(bool toggle)
         {
-            string definesString = PlayerSettings.GetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup);
+            if(_autoBuildVersion != toggle)
+            {
+                _autoBuildVersion = toggle;
+                PlayerPrefs.SetInt(AUTO_BUILD_VERSION_PLAYERPRES_KEY, toggle ? 1 : 0);
+            }
+        }
 
-            List<string> allDefines = definesString.Split(';').ToList();
+        public static bool IsDebugMode()
+        {
+            return PlayerPrefs.GetInt(DEBUG_MODE_PLAYERPREFS_KEY, 0) == 1;
+        }
 
-            return allDefines.Contains(DEBUG_MODE);
+        public static bool IsAutoBuildVersion()
+        {
+            return PlayerPrefs.GetInt(AUTO_BUILD_VERSION_PLAYERPRES_KEY, 0) == 1;
         }
     }
 }

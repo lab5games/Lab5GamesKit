@@ -12,31 +12,34 @@ namespace Lab5Games.Editor
 
         public void OnPreprocessBuild(BuildReport report)
         {
-            string currentVersion = PlayerSettings.bundleVersion;
-
-            try
+            if (ProjectSettingsEditor.IsAutoBuildVersion())
             {
-                int major = Convert.ToInt32(currentVersion.Split('.')[0]);
-                int minor = Convert.ToInt32(currentVersion.Split('.')[1]);
-                int build = Convert.ToInt32(currentVersion.Split('.')[2]) + 1;
+                string currentVersion = PlayerSettings.bundleVersion;
 
-                PlayerSettings.bundleVersion = $"{major}.{minor}.{build}";
-
-                if(EditorUserBuildSettings.activeBuildTarget == BuildTarget.iOS)
+                try
                 {
-                    PlayerSettings.iOS.buildNumber = build.ToString();
-                }
-                else if(EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android)
-                {
-                    PlayerSettings.Android.bundleVersionCode = build;
-                }
+                    int major = Convert.ToInt32(currentVersion.Split('.')[0]);
+                    int minor = Convert.ToInt32(currentVersion.Split('.')[1]);
+                    int build = Convert.ToInt32(currentVersion.Split('.')[2]) + 1;
 
-                DebugEx.Log(ELogType.Warning, $"build version {major}.{minor}.{build}");
-            }
-            catch(Exception e)
-            {
-                UnityEngine.Debug.LogException(e);
-                UnityEngine.Debug.LogError("BuildVersionProcess script failed. Make sure your current bundle version is in the format x.x.x (eg. 0.0.1).");
+                    PlayerSettings.bundleVersion = $"{major}.{minor}.{build}";
+
+                    if (EditorUserBuildSettings.activeBuildTarget == BuildTarget.iOS)
+                    {
+                        PlayerSettings.iOS.buildNumber = build.ToString();
+                    }
+                    else if (EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android)
+                    {
+                        PlayerSettings.Android.bundleVersionCode = build;
+                    }
+
+                    DebugEx.Log(ELogType.Warning, $"build version {major}.{minor}.{build}");
+                }
+                catch (Exception e)
+                {
+                    UnityEngine.Debug.LogException(e);
+                    UnityEngine.Debug.LogError("BuildVersionProcess script failed. Make sure your current bundle version is in the format x.x.x (eg. 0.0.1).");
+                }
             }
         }
 
