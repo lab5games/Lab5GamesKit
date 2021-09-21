@@ -223,11 +223,12 @@ namespace Lab5Games
             int n = list.Count;
             while (n > 1)
             {
-                n--;
-                int k = UnityEngine.Random.Range(0, n + 1);
+                int k = UnityEngine.Random.Range(0, n);
                 T val = list[k];
-                list[k] = list[n];
-                list[n] = val;
+                list[k] = list[n-1];
+                list[n-1] = val;
+
+                --n;
             }
         }
 
