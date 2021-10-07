@@ -6,7 +6,7 @@ namespace Lab5Games
     {
         private static T _singleton = null;
 
-        public static T Singleton
+        public static T Instance
         {
             get
             {
