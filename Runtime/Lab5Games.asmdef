@@ -1,6 +1,6 @@
 {
     "name": "Lab5Games",
-    "rootNamespace": "",
+    "rootNamespace": "Lab5Games",
     "references": [],
     "includePlatforms": [
         "Android",
