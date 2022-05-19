@@ -10,9 +10,15 @@ namespace Lab5Games
 
         protected virtual void Awake()
         {
-            Instance = this as T;
+            if(Instance != null)
+            {
+                Logger.LogAsType($"[Singleton] There should never be more than one {typeof(T).Name} in the scene", LogType.Warning);
+                Destroy(gameObject);
+                return;
+            }
 
-            Logger.LogAsType($"[Singleton] Instance {typeof(T).Name} created", LogType.Log, this);
+
+            Instance = this as T;
 
             if (IsPersistent)
                 DontDestroyOnLoad(gameObject);

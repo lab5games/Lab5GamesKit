@@ -35,5 +35,13 @@ namespace Lab5Games
                 _sound.Stop();
             }
         }
+
+        public void FadeOutAndStop(float duration)
+        {
+            if(_sound != null)
+            {
+                _sound.FadeOutAndStop(duration);
+            }
+        }
     }
 }

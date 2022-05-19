@@ -23,8 +23,8 @@ namespace Lab5Games
 
         const string KEY_AUDIO_MIXER_ADDRESS = "AudioMixer";
 
-        const int MAX_EFFECT_SOUND_CAPACITY = 14;
-        const int MAX_UI_SOUND_CAPACITY = 6;
+        public static int MAX_EFFECT_SOUND_CAPACITY = 14;
+        public static int MAX_UI_SOUND_CAPACITY = 6;
        
         public Sound BackgroundMusic { get; private set; }
 
