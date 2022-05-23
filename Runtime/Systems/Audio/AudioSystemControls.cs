@@ -80,6 +80,21 @@ namespace Lab5Games
             }
         }
 
+        public void StopAll()
+        {
+            BackgroundMusic.Stop();
+
+            for (int i = _playingEffectSounds.Count - 1; i >= 0; i--)
+            {
+                _playingEffectSounds[i].Stop();
+            }
+
+            for (int i = _playingUISounds.Count - 1; i >= 0; i--)
+            {
+                _playingUISounds[i].Stop();
+            }
+        }
+
         public void LoadSettings()
         {
             if(ShowLog)
