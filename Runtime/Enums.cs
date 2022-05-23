@@ -25,7 +25,7 @@ namespace Lab5Games
         UI
     }
 
-    internal enum LogType
+    public enum LogType
     {
         Log,
         Warning,
@@ -34,7 +34,7 @@ namespace Lab5Games
         Assert
     }
 
-    internal enum LogFilter
+    public enum LogFilter
     {
         System,
         Network,
