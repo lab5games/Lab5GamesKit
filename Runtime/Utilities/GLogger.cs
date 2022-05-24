@@ -2,7 +2,7 @@
 
 namespace Lab5Games
 {
-    public static class Logger
+    public static class GLogger
     {
         public static void LogAsType(string log, LogType type, UnityEngine.Object context = null)
         {

@@ -83,7 +83,7 @@ namespace Lab5Games
         public void StopAll()
         {
             if(ShowLog)
-                Logger.LogToFilter("[AudioSystem] Stop all sounds.", LogFilter.System, this);
+                GLogger.LogToFilter("[AudioSystem] Stop all sounds.", LogFilter.System, this);
 
             BackgroundMusic.Stop();
 
@@ -101,7 +101,7 @@ namespace Lab5Games
         public void LoadSettings()
         {
             if(ShowLog)
-                Logger.LogToFilter("[AudioSystem] Load settings", LogFilter.System, this);
+                GLogger.LogToFilter("[AudioSystem] Load settings", LogFilter.System, this);
 
             MasterVolume = PlayerPrefs.GetFloat(KEY_MASTER_VOLUME, 1);
             MusicVolume = PlayerPrefs.GetFloat(KEY_MUSIC_VOLUME, 1);
@@ -112,7 +112,7 @@ namespace Lab5Games
         public void SaveSettings()
         {
             if(ShowLog)
-                Logger.LogToFilter("[AudioSystem] Save settings", LogFilter.System, this);
+                GLogger.LogToFilter("[AudioSystem] Save settings", LogFilter.System, this);
 
             PlayerPrefs.SetFloat(KEY_MASTER_VOLUME, MasterVolume);
             PlayerPrefs.SetFloat(KEY_MUSIC_VOLUME, MusicVolume);
@@ -125,7 +125,7 @@ namespace Lab5Games
             if(clip == null)
             {
                 if(ShowLog)
-                    Logger.LogAsType("[AudioSystem] Failed to play background music, playing clip is null", LogType.Warning, this);
+                    GLogger.LogAsType("[AudioSystem] Failed to play background music, playing clip is null", LogType.Warning, this);
                 return;
             }
 
@@ -148,7 +148,7 @@ namespace Lab5Games
             if(clip == null)
             {
                 if(ShowLog)
-                    Logger.LogAsType("[AudioSystem] Failed to play effect sound, playing clip is null",  LogType.Warning, this);
+                    GLogger.LogAsType("[AudioSystem] Failed to play effect sound, playing clip is null",  LogType.Warning, this);
                 return null;
             }
 
@@ -157,7 +157,7 @@ namespace Lab5Games
             if(sound == null)
             {
                 if(ShowLog)
-                    Logger.LogAsType("[AudioSystem] Failed to play effect sound, no available effect sound can used",  LogType.Warning, this);
+                    GLogger.LogAsType("[AudioSystem] Failed to play effect sound, no available effect sound can used",  LogType.Warning, this);
                 return null;
             }
 
@@ -177,7 +177,7 @@ namespace Lab5Games
             if (clip == null)
             {
                 if(ShowLog)
-                    Logger.LogAsType("[AudioSystem] Failed to play ui sound, playing clip is null", LogType.Warning, this);
+                    GLogger.LogAsType("[AudioSystem] Failed to play ui sound, playing clip is null", LogType.Warning, this);
                 return null;
             }
 
@@ -186,7 +186,7 @@ namespace Lab5Games
             if (sound == null)
             {
                 if(ShowLog)
-                    Logger.LogAsType("[AudioSystem] Failed to play ui sound, no available ui sound can used", LogType.Warning, this);
+                    GLogger.LogAsType("[AudioSystem] Failed to play ui sound, no available ui sound can used", LogType.Warning, this);
                 return null;
             }
 

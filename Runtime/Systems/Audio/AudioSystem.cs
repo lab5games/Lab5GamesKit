@@ -55,7 +55,7 @@ namespace Lab5Games
                 _availableEffectSounds.Push(sound);
 
                 if (ShowLog)
-                    Logger.LogToFilter($"[AudioSystem] Effect sound({indx}) stopped", LogFilter.System, this);
+                    GLogger.LogToFilter($"[AudioSystem] Effect sound({indx}) stopped", LogFilter.System, this);
             }
         }
 
@@ -69,7 +69,7 @@ namespace Lab5Games
                 _availableUISounds.Push(sound);
 
                 if (ShowLog)
-                    Logger.LogToFilter($"[AudioSystem] UI sound({indx}) stopped", LogFilter.System, this);
+                    GLogger.LogToFilter($"[AudioSystem] UI sound({indx}) stopped", LogFilter.System, this);
             }
         }
 
@@ -83,7 +83,7 @@ namespace Lab5Games
                 Message = "Failed to load AudioMixer";
                 
                 if(ShowLog)
-                    Logger.LogAsType("[AudioSystem] " + Message, LogType.Error, this);
+                    GLogger.LogAsType("[AudioSystem] " + Message, LogType.Error, this);
                 
                 return;
             }
@@ -137,7 +137,7 @@ namespace Lab5Games
             Message = "[AudioSystem] Successed.";
             
             if (ShowLog)
-                Logger.LogToFilter(Message, LogFilter.System, this);
+                GLogger.LogToFilter(Message, LogFilter.System, this);
 
             Status = SystemStatus.Success;
         }
