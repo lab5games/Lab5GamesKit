@@ -4,9 +4,9 @@ using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;
 
-namespace Lab5GamesEditor
+namespace Lab5Games.Editor
 {
-    public class MixMaxValueDrawer : OdinValueDrawer<Lab5Games.MixMaxValue>
+    public class MinMaxValueDrawer : OdinValueDrawer<Lab5Games.MinMaxValue>
     {
         protected override void DrawPropertyLayout(GUIContent label)
         {

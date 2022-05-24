@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.UI;
 
-namespace Lab5GamesEditor
+namespace Lab5Games.Editor
 {
     [CanEditMultipleObjects, CustomEditor(typeof(Lab5Games.NoDrawingGraphic), false)]
     public class NoDrawingGraphicDrawer : GraphicEditor
