@@ -19,7 +19,7 @@ namespace Lab5Games
         public void StopAll()
         {
             if(showLog)
-                GLogger.LogToFilter("[ScheduleSystem] Stop all schedules.", LogFilter.System, this);
+                GLogger.LogToFilter("[ScheduleSystem] Stop all schedules.", GLogFilter.System, this);
 
             foreach(var schedule in _scheduleList)
             {
@@ -47,7 +47,7 @@ namespace Lab5Games
             Message = "[ScheduleSystem] Successed.";
 
             if (showLog)
-                GLogger.LogToFilter(Message, LogFilter.System, this);
+                GLogger.LogToFilter(Message, GLogFilter.System, this);
 
             Status = SystemStatus.Success;
         }

@@ -12,7 +12,7 @@ namespace Lab5Games
         {
             if(Instance != null)
             {
-                GLogger.LogAsType($"[Singleton] There should never be more than one {typeof(T).Name} in the scene", LogType.Warning);
+                GLogger.LogAsType($"[Singleton] There should never be more than one {typeof(T).Name} in the scene", GLogType.Warning);
                 Destroy(gameObject);
                 return;
             }
@@ -26,7 +26,7 @@ namespace Lab5Games
 
         protected virtual void OnDestroy()
         {
-            GLogger.LogAsType($"[Singleton] {typeof(T).Name} instance  destroyed", LogType.Log, this);
+            GLogger.LogAsType($"[Singleton] {typeof(T).Name} instance  destroyed", GLogType.Log, this);
         }
     }
 }

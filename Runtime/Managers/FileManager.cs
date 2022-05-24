@@ -23,18 +23,18 @@ namespace Lab5Games
             {
                 if(File.Exists(path))
                 {
-                    GLogger.LogAsType($"Failed to create {path} file, it is already existed.", LogType.Error);
+                    GLogger.LogAsType($"Failed to create {path} file, it is already existed.", GLogType.Error);
                     return false;
                 }
 
                 File.Create(path);
-                GLogger.LogAsType("Create file successed.", LogType.Log);
+                GLogger.LogAsType("Create file successed.", GLogType.Log);
 
                 return true;
             }
             catch(Exception e)
             {
-                GLogger.LogAsType($"Failed to create {path} file with exception: {e}", LogType.Exception);
+                GLogger.LogAsType($"Failed to create {path} file with exception: {e}", GLogType.Exception);
                 return false;
             }
         }
@@ -46,13 +46,13 @@ namespace Lab5Games
             try
             {
                 File.Delete(path);
-                GLogger.LogAsType("Delete file successed.", LogType.Log);
+                GLogger.LogAsType("Delete file successed.", GLogType.Log);
 
                 return true;
             }
             catch(Exception e)
             {
-                GLogger.LogAsType($"Failed to delete {path} file with exception: {e}", LogType.Exception);
+                GLogger.LogAsType($"Failed to delete {path} file with exception: {e}", GLogType.Exception);
                 return false;
             }
         }
@@ -66,7 +66,7 @@ namespace Lab5Games
             {
                 if(!File.Exists(src_path))
                 {
-                    GLogger.LogAsType($"Failed to move {src_path} file that does not exist", LogType.Error);
+                    GLogger.LogAsType($"Failed to move {src_path} file that does not exist", GLogType.Error);
                     return false;
                 }
 
@@ -76,13 +76,13 @@ namespace Lab5Games
                 }
 
                 File.Move(src_path, dest_path);
-                GLogger.LogAsType("Move file successed", LogType.Log);
+                GLogger.LogAsType("Move file successed", GLogType.Log);
 
                 return true;
             }
             catch(Exception e)
             {
-                GLogger.LogAsType($"Failed to move file from {src_path} to {dest_path}, and with exception: {e}", LogType.Exception);
+                GLogger.LogAsType($"Failed to move file from {src_path} to {dest_path}, and with exception: {e}", GLogType.Exception);
                 return false;
             }
         }
@@ -94,13 +94,13 @@ namespace Lab5Games
             try
             {
                 File.WriteAllText(path, content);
-                GLogger.LogAsType("Write file successed.", LogType.Log);
+                GLogger.LogAsType("Write file successed.", GLogType.Log);
 
                 return true;
             }
             catch(Exception e)
             {
-                GLogger.LogAsType($"Failed to write {path} file with exception: {e}", LogType.Exception);
+                GLogger.LogAsType($"Failed to write {path} file with exception: {e}", GLogType.Exception);
                 return false;
             }
         }
@@ -114,19 +114,19 @@ namespace Lab5Games
                 if(!File.Exists(path))
                 {
                     content = null;
-                    GLogger.LogAsType($"Failed to read {path} file that does not exist", LogType.Error);
+                    GLogger.LogAsType($"Failed to read {path} file that does not exist", GLogType.Error);
                     return false;
                 }
 
                 content = File.ReadAllText(path);
-                GLogger.LogAsType("Read file successed.", LogType.Log);
+                GLogger.LogAsType("Read file successed.", GLogType.Log);
 
                 return true;
             }
             catch(Exception e)
             {
                 content = null;
-                GLogger.LogAsType($"Failed to read {path} file with exception: {e}", LogType.Exception);
+                GLogger.LogAsType($"Failed to read {path} file with exception: {e}", GLogType.Exception);
                 return false;
             }
         }

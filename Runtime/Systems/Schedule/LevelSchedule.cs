@@ -64,7 +64,7 @@ namespace Lab5Games
 
         private void LoadLevel()
         {
-            GLogger.LogAsType($"[LevelSchedule] Loading {Level} level...", LogType.Log);
+            GLogger.LogAsType($"[LevelSchedule] Loading {Level} level...", GLogType.Log);
 
             _async = SceneManager.LoadSceneAsync(Level, Option == LevelOptions.LoadSingle ? LoadSceneMode.Single : LoadSceneMode.Additive);
 
@@ -75,7 +75,7 @@ namespace Lab5Games
 
         private void UnloadLevel()
         {
-            GLogger.LogAsType($"[LevelSchedule] Unloading {Level} level...", LogType.Log);
+            GLogger.LogAsType($"[LevelSchedule] Unloading {Level} level...", GLogType.Log);
 
             _async = SceneManager.UnloadSceneAsync(Level);
         }
@@ -94,7 +94,7 @@ namespace Lab5Games
 
                 Complete();
 
-                GLogger.LogAsType($"[LevelSchedule] {Level} level loaded and set as visible. Option= {Option}", LogType.Log);
+                GLogger.LogAsType($"[LevelSchedule] {Level} level loaded and set as visible. Option= {Option}", GLogType.Log);
             }
         }
 
@@ -106,7 +106,7 @@ namespace Lab5Games
                 {
                     Complete();
 
-                    GLogger.LogAsType($"[LevelSchedule] {Level} level unloaded.", LogType.Log);
+                    GLogger.LogAsType($"[LevelSchedule] {Level} level unloaded.", GLogType.Log);
                 }
             }
             else
@@ -115,7 +115,7 @@ namespace Lab5Games
                 {
                     Complete();
 
-                    GLogger.LogAsType($"[LevelSchedule] {Level} level loaded. Option= {Option}", LogType.Log);
+                    GLogger.LogAsType($"[LevelSchedule] {Level} level loaded. Option= {Option}", GLogType.Log);
                 }
             }
         }

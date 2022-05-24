@@ -32,7 +32,7 @@ namespace Lab5Games
         UI
     }
 
-    public enum LogType
+    public enum GLogType
     {
         Log,
         Warning,
@@ -41,7 +41,7 @@ namespace Lab5Games
         Assert
     }
 
-    public enum LogFilter
+    public enum GLogFilter
     {
         System,
         Network,
