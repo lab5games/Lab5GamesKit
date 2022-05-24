@@ -3,25 +3,25 @@ using System.Collections;
 
 namespace Lab5Games
 {
-    public class CoroutineTasker : Tasker, IAwaitable<CoroutineTasker>, IAwaiter
+    public class RoutineSchedule : Schedule, IAwaitable<RoutineSchedule>, IAwaiter
     {
-        public static CoroutineTasker Create(IEnumerator task, bool autoStart = true)
+        public static RoutineSchedule Create(IEnumerator task, bool autoStart = true)
         {
             if (task == null)
                 throw new ArgumentNullException(nameof(task));
 
-            CoroutineTasker newTasker = new CoroutineTasker(task);
+            RoutineSchedule schedule = new RoutineSchedule(task);
 
             if (autoStart)
-                newTasker.Start();
+                schedule.Start();
 
-            return newTasker;
+            return schedule;
         }
 
-
         IEnumerator _task;
+        bool _running = false;
 
-        private CoroutineTasker(IEnumerator task)
+        private RoutineSchedule(IEnumerator task)
         {
             _task = task;
         }
@@ -33,19 +33,19 @@ namespace Lab5Games
 
         internal IEnumerator Task()
         {
-            bool running = true;
+            _running = true;
 
-            while(running)
+            while(_running)
             {
-                if(Status == TaskStatus.Paused)
+                if(Status == ScheduleStatus.Paused)
                 {
                     yield return Yielders.EndOfFrame;
                 }
                 else
                 {
-                    if(Status == TaskStatus.Canceled)
+                    if(Status == ScheduleStatus.Canceled)
                     {
-                        running = false;
+                        _running = false;
                     }
                     else
                     {
@@ -55,7 +55,7 @@ namespace Lab5Games
                         }
                         else
                         {
-                            running = false;
+                            _running = false;
                             Complete();
                         }
                     }
@@ -67,7 +67,7 @@ namespace Lab5Games
         { 
             get
             {
-                return Status == TaskStatus.Completed || Status == TaskStatus.Canceled;
+                return Status == ScheduleStatus.Completed || Status == ScheduleStatus.Canceled;
             }
         }
 
@@ -78,11 +78,11 @@ namespace Lab5Games
 
         public void OnCompleted(Action continuation)
         {
-            onCompleted += () => continuation?.Invoke();
-            onCanceled += () => continuation?.Invoke();
+            onCompleted += continuation;
+            onCanceled += continuation;
         }
 
-        public CoroutineTasker GetAwaiter()
+        public RoutineSchedule GetAwaiter()
         {
             return this;
         }

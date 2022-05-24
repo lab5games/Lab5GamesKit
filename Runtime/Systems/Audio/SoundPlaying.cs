@@ -2,7 +2,7 @@
 
 namespace Lab5Games
 {
-    public class SoundPlaying
+    public class SoundPlaying : MonoBehaviour
     {
         public SoundType soundType = SoundType.Effect;
 

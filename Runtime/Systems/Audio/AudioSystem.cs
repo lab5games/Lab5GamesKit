@@ -7,9 +7,9 @@ using UnityEngine.AddressableAssets;
 
 namespace Lab5Games
 {
-    public partial class AudioSystem : Singleton<AudioSystem>, IGameSystem
+    public partial class AudioSystem : Singleton<AudioSystem>, ISystem
     {
-        public GameSystemStatus Status { get; private set; }
+        public SystemStatus Status { get; private set; }
         public string Message { get; private set; }
 
         public bool ShowLog = true;
@@ -79,7 +79,7 @@ namespace Lab5Games
 
             if(_audioMixer == null)
             {
-                Status = GameSystemStatus.Failure;
+                Status = SystemStatus.Failure;
                 Message = "Failed to load AudioMixer";
                 
                 if(ShowLog)
@@ -134,12 +134,17 @@ namespace Lab5Games
 
             LoadSettings();
 
-            Status = GameSystemStatus.Success;
+            Message = "[AudioSystem] Successed.";
+            
+            if (ShowLog)
+                Logger.LogToFilter(Message, LogFilter.System, this);
+
+            Status = SystemStatus.Success;
         }
 
         void Update()
         {
-            if(Status == GameSystemStatus.Success)
+            if(Status == SystemStatus.Success)
             {
                 for(int i=_playingEffectSounds.Count-1; i>=0; i--)
                 {

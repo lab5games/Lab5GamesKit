@@ -25,7 +25,7 @@ namespace Lab5Games
             {
                 _masterVolume = Mathf.Clamp01(value);
 
-                if (Status == GameSystemStatus.Success)
+                if (Status == SystemStatus.Success)
                 {
                     _audioMixer.SetFloat(KEY_MASTER_VOLUME, Mathf.Lerp(-80, 0, _masterVolume));
                 }
@@ -41,7 +41,7 @@ namespace Lab5Games
             {
                 _musicVolume = Mathf.Clamp01(value);
 
-                if (Status == GameSystemStatus.Success)
+                if (Status == SystemStatus.Success)
                 {
                     _audioMixer.SetFloat(KEY_MUSIC_VOLUME, Mathf.Lerp(-80, 0, _musicVolume));
                 }
@@ -57,7 +57,7 @@ namespace Lab5Games
             {
                 _effectVolume = Mathf.Clamp01(value);
 
-                if (Status == GameSystemStatus.Success)
+                if (Status == SystemStatus.Success)
                 {
                     _audioMixer.SetFloat(KEY_EFFECT_VOLUME, Mathf.Lerp(-80, 0, _effectVolume));
                 }
@@ -73,7 +73,7 @@ namespace Lab5Games
             {
                 _uiVolume = Mathf.Clamp01(value);
 
-                if(Status == GameSystemStatus.Success)
+                if(Status == SystemStatus.Success)
                 {
                     _audioMixer.SetFloat(KEY_UI_VOLUME, Mathf.Lerp(-80, 0, _uiVolume));
                 }
@@ -82,6 +82,9 @@ namespace Lab5Games
 
         public void StopAll()
         {
+            if(ShowLog)
+                Logger.LogToFilter("[AudioSystem] Stop all sounds.", LogFilter.System, this);
+
             BackgroundMusic.Stop();
 
             for (int i = _playingEffectSounds.Count - 1; i >= 0; i--)
@@ -127,6 +130,7 @@ namespace Lab5Games
             }
 
             BackgroundMusic.Play(clip, volume, 1, 0);
+            BackgroundMusic.Loop = true;
         }
 
         public void StopBackgroundMusic()

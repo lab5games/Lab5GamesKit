@@ -2,20 +2,27 @@
 namespace Lab5Games
 {
 
-    public enum GameSystemStatus
+    public enum SystemStatus
     {
         None,
         Success,
         Failure
     }
 
-    public enum TaskStatus
+    public enum ScheduleStatus
     {
         Ready,
         Running,
         Paused,
         Completed,
         Canceled
+    }
+
+    public enum LevelOptions
+    {
+        LoadSingle,
+        LoadAdditive,
+        Unload
     }
 
     public enum SoundType

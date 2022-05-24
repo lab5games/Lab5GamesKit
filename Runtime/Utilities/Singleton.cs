@@ -26,7 +26,7 @@ namespace Lab5Games
 
         protected virtual void OnDestroy()
         {
-            Logger.LogAsType($"[Singleton] Instance {typeof(T).Name} destroyed", LogType.Log, this);
+            Logger.LogAsType($"[Singleton] {typeof(T).Name} instance  destroyed", LogType.Log, this);
         }
     }
 }

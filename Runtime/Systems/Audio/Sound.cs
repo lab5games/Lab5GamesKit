@@ -55,7 +55,7 @@ namespace Lab5Games
 
         public async void FadeOutAndStop(float duration)
         {
-            await CoroutineTasker.Create(TaskFadeOut(duration));
+            await RoutineSchedule.Create(TaskFadeOut(duration));
 
             Stop();
         }

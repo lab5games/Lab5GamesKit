@@ -1,9 +1,9 @@
 ﻿
 namespace Lab5Games
 { 
-    public interface IGameSystem
+    public interface ISystem
     {
-        public GameSystemStatus Status { get; }
+        public SystemStatus Status { get; }
 
         public string Message { get; }
     }
