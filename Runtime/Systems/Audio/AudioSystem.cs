@@ -1,9 +1,6 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using UnityEngine.Audio;
-using UnityEngine.AddressableAssets;
+
 
 namespace Lab5Games
 {
@@ -71,75 +68,6 @@ namespace Lab5Games
                 if (ShowLog)
                     GLogger.LogToFilter($"[AudioSystem] UI sound({indx}) stopped", GLogFilter.System, this);
             }
-        }
-
-        async void Start()
-        {
-            _audioMixer = await Addressables.LoadAssetAsync<AudioMixer>(KEY_AUDIO_MIXER_ADDRESS).Task;
-
-            if(_audioMixer == null)
-            {
-                Status = SystemStatus.Failure;
-                Message = "Failed to load AudioMixer";
-                
-                if(ShowLog)
-                    GLogger.LogAsType("[AudioSystem] " + Message, GLogType.Error, this);
-                
-                return;
-            }
-
-            AudioMixerGroup musicMG = _audioMixer.FindMatchingGroups("Music").First(); 
-            AudioMixerGroup effectMG = _audioMixer.FindMatchingGroups("SoundEffect").First();
-            AudioMixerGroup uiMG = _audioMixer.FindMatchingGroups("UI").First();
-
-            // Background Music
-            GameObject goMusic = new GameObject("Music");
-            goMusic.transform.SetParent(transform);
-
-            AudioSource musicSrc = goMusic.AddComponent<AudioSource>();
-            musicSrc.playOnAwake = false;
-            musicSrc.outputAudioMixerGroup = musicMG;
-
-            BackgroundMusic = new Sound(musicSrc);
-            // Sound Effect
-            GameObject goSoundEffect = new GameObject("SoundEffect");
-            goSoundEffect.transform.SetParent(transform);
-
-            for(int i=0; i<MAX_EFFECT_SOUND_CAPACITY; i++)
-            {
-                AudioSource effectSrc = goSoundEffect.AddComponent<AudioSource>();
-                effectSrc.playOnAwake = false;
-                effectSrc.outputAudioMixerGroup = effectMG;
-
-                Sound effectSound = new Sound(effectSrc);
-                effectSound.onStop += EffectSoundStopped;
-
-                _availableEffectSounds.Push(effectSound);
-            }
-            // UI
-            GameObject goUI = new GameObject("UI");
-            goUI.transform.SetParent(transform);
-
-            for(int i=0; i<MAX_UI_SOUND_CAPACITY; i++)
-            {
-                AudioSource uiSrc = goUI.AddComponent<AudioSource>();
-                uiSrc.playOnAwake = false;
-                uiSrc.outputAudioMixerGroup = uiMG;
-
-                Sound uiSound = new Sound(uiSrc);
-                uiSound.onStop += UISoundStopped;
-
-                _availableUISounds.Push(uiSound);
-            }
-
-            LoadSettings();
-
-            Message = "[AudioSystem] Successed.";
-            
-            if (ShowLog)
-                GLogger.LogToFilter(Message, GLogFilter.System, this);
-
-            Status = SystemStatus.Success;
         }
 
         void Update()
