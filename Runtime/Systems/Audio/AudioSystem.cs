@@ -18,6 +18,9 @@ namespace Lab5Games
         [SerializeField] string musicVolumeParameter = "MusicVolume";
         [SerializeField] string effectVolumeParameter = "EffectVolume";
         [SerializeField] string uiVolumeParameter = "UIVolume";
+        [SerializeField] string musicGroup = "Music";
+        [SerializeField] string effectGroup = "SoundEffect";
+        [SerializeField] string uiGroup = "UI";
 
         Stack<Sound> _availableEffectSounds = new Stack<Sound>();
         Stack<Sound> _availableUISounds = new Stack<Sound>();
@@ -68,9 +71,9 @@ namespace Lab5Games
         private void Start()
         {
             // Background Music
-            AudioMixerGroup musicGroup = audioMixer.FindMatchingGroups("Music").First();
+            AudioMixerGroup musicGroup = audioMixer.FindMatchingGroups(this.musicGroup).First();
 
-            GameObject goMusic = new GameObject("Music");
+            GameObject goMusic = new GameObject(this.musicGroup);
             goMusic.transform.SetParent(transform);
 
             var bgmSrc = goMusic.AddComponent<AudioSource>();
@@ -79,9 +82,9 @@ namespace Lab5Games
             BackgroundMusic = new Sound(bgmSrc);
 
             // Sound Effect
-            AudioMixerGroup effectGroup = audioMixer.FindMatchingGroups("SoundEffect").First();
+            AudioMixerGroup effectGroup = audioMixer.FindMatchingGroups(this.effectGroup).First();
 
-            GameObject goSFx = new GameObject("Sound Effect");
+            GameObject goSFx = new GameObject(this.effectGroup);
             goSFx.transform.SetParent(transform);
 
             for (int i=0; i<soundEffectCapacity; i++)
@@ -97,9 +100,9 @@ namespace Lab5Games
             }
 
             // UI Effect
-            AudioMixerGroup uiGroup = audioMixer.FindMatchingGroups("UI").First();
+            AudioMixerGroup uiGroup = audioMixer.FindMatchingGroups(this.uiGroup).First();
 
-            GameObject goUIFx = new GameObject("UI Effect");
+            GameObject goUIFx = new GameObject(this.uiGroup);
             goUIFx.transform.SetParent(transform);
 
             for (int i=0; i<uiEffectCapacity; i++)
