@@ -19,8 +19,8 @@ namespace Lab5Games.Editor
 
 			var value = this.ValueEntry.SmartValue;
 			GUIHelper.PushLabelWidth(20);
-			value.min = EditorGUI.FloatField(rect.AlignLeft(rect.width * 0.45f), "Min", value.min);
-			value.max = EditorGUI.FloatField(rect.AlignRight(rect.width * 0.45f), "Max", value.max);
+			value.min = EditorGUI.FloatField(rect.AlignLeft(rect.width * 0.46f), "min", value.min);
+			value.max = EditorGUI.FloatField(rect.AlignRight(rect.width * 0.46f), "max", value.max);
 			GUIHelper.PopLabelWidth();
 
 			this.ValueEntry.SmartValue = value;
