@@ -6,16 +6,16 @@ namespace Lab5Games
 {
     public class LevelManager : Singleton<LevelManager>
     {
-        static List<LevelSchedule> _schedules = new List<LevelSchedule>();
+        static List<LevelOperation> _loadingLevels = new List<LevelOperation>();
 
-        public static LevelSchedule LoadLevel(string levelName, LoadSceneMode mode, bool visibleOnLoaded = true)
+        public static LevelOperation LoadLevel(string levelName, LoadSceneMode mode, bool visibleOnLoaded = true)
         {
             GLogger.LogToFilter($"[LevelManager] Load {levelName} level...", GLogFilter.System);
 
             var asyncOp = SceneManager.LoadSceneAsync(levelName, mode);
-            LevelSchedule schedule = new LevelSchedule(levelName, asyncOp, visibleOnLoaded);
+            LevelOperation schedule = new LevelOperation(levelName, asyncOp, visibleOnLoaded);
 
-            _schedules.Add(schedule);
+            _loadingLevels.Add(schedule);
 
             return schedule;
         }
@@ -45,12 +45,12 @@ namespace Lab5Games
 
         private void Update()
         {
-            for(int i=_schedules.Count-1; i>=0; i--)
+            for(int i=_loadingLevels.Count-1; i>=0; i--)
             {
-                _schedules[i].Tick();
+                _loadingLevels[i].Tick();
 
-                if (_schedules[i].IsCompleted)
-                    _schedules.RemoveAt(i);
+                if (_loadingLevels[i].IsCompleted)
+                    _loadingLevels.RemoveAt(i);
             }
         }
     }

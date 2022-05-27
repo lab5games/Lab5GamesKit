@@ -2,7 +2,19 @@
 
 namespace Lab5Games
 { 
-    public abstract class Schedule
+    public interface ISchedule
+    {
+        public ScheduleStatus Status { get; }
+
+        void Start();
+        void Complete();
+        void Cancel();
+        void Pause();
+        void Unpause();
+        void Tick(float dt);
+    }
+
+    public abstract class Schedule : ISchedule
     {
         public ScheduleStatus Status { get; protected set; }
 

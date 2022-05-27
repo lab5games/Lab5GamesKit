@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Lab5Games
 {
-    public class LevelSchedule : IAwaitable<LevelSchedule>, IAwaiter
+    public class LevelOperation : IAwaitable<LevelOperation>, IAwaiter
     {
         AsyncOperation _asyncOp;
 
@@ -26,7 +26,7 @@ namespace Lab5Games
 
         public event Action onCompleted;
 
-        public LevelSchedule(string levelName, AsyncOperation asyncOp, bool visibleOnLoaded)
+        public LevelOperation(string levelName, AsyncOperation asyncOp, bool visibleOnLoaded)
         {
             if (asyncOp == null)
                 throw new ArgumentNullException(nameof(asyncOp));
@@ -72,7 +72,7 @@ namespace Lab5Games
             onCompleted += continuation;
         }
 
-        public LevelSchedule GetAwaiter()
+        public LevelOperation GetAwaiter()
         {
             return this;
         }
