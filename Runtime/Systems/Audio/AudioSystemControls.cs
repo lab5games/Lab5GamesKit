@@ -1,10 +1,5 @@
-﻿using System;
-using System.Linq;
-using UnityEngine;
-using UnityEngine.Audio;
-using UnityEngine.AddressableAssets;
+﻿using UnityEngine;
 using Sirenix.OdinInspector;
-using System.Threading.Tasks;
 
 namespace Lab5Games
 {
@@ -15,12 +10,6 @@ namespace Lab5Games
         float _effectVolume;
         float _uiVolume;
 
-        const string KEY_MASTER_VOLUME = "MasterVolume";
-        const string KEY_MUSIC_VOLUME = "MusicVolume";
-        const string KEY_EFFECT_VOLUME = "EffectVolume";
-        const string KEY_UI_VOLUME = "UIVolume";
-
-
         [ShowInInspector, PropertyRange(0, 1)]
         public float MasterVolume
         {
@@ -30,10 +19,7 @@ namespace Lab5Games
             {
                 _masterVolume = Mathf.Clamp01(value);
 
-                if (Status == SystemStatus.Success)
-                {
-                    _audioMixer.SetFloat(KEY_MASTER_VOLUME, Mathf.Lerp(-80, 0, _masterVolume));
-                }
+                audioMixer.SetFloat(masterVolumeParameter, Mathf.Lerp(-80, 0, _masterVolume));
             }
         }
 
@@ -46,10 +32,7 @@ namespace Lab5Games
             {
                 _musicVolume = Mathf.Clamp01(value);
 
-                if (Status == SystemStatus.Success)
-                {
-                    _audioMixer.SetFloat(KEY_MUSIC_VOLUME, Mathf.Lerp(-80, 0, _musicVolume));
-                }
+                audioMixer.SetFloat(musicVolumeParameter, Mathf.Lerp(-80, 0, _musicVolume));
             }
         }
 
@@ -62,10 +45,7 @@ namespace Lab5Games
             {
                 _effectVolume = Mathf.Clamp01(value);
 
-                if (Status == SystemStatus.Success)
-                {
-                    _audioMixer.SetFloat(KEY_EFFECT_VOLUME, Mathf.Lerp(-80, 0, _effectVolume));
-                }
+                audioMixer.SetFloat(effectVolumeParameter, Mathf.Lerp(-80, 0, _effectVolume));
             }
         }
 
@@ -78,78 +58,8 @@ namespace Lab5Games
             {
                 _uiVolume = Mathf.Clamp01(value);
 
-                if(Status == SystemStatus.Success)
-                {
-                    _audioMixer.SetFloat(KEY_UI_VOLUME, Mathf.Lerp(-80, 0, _uiVolume));
-                }
+                audioMixer.SetFloat(uiVolumeParameter, Mathf.Lerp(-80, 0, _uiVolume));
             }
-        }
-
-        public async Task Initialize()
-        {
-            _audioMixer = await Addressables.LoadAssetAsync<AudioMixer>(KEY_AUDIO_MIXER_ADDRESS).Task;
-
-            if(_audioMixer == null)
-            {
-                Status = SystemStatus.Failure;
-                Message = "Failed to load AudioMixer";
-
-                GLogger.LogAsType("[AudioSystem] " + Message, GLogType.Error, this);
-                return;
-            }
-
-            AudioMixerGroup musicMG = _audioMixer.FindMatchingGroups("Music").First();
-            AudioMixerGroup effectMG = _audioMixer.FindMatchingGroups("SoundEffect").First();
-            AudioMixerGroup uiMG = _audioMixer.FindMatchingGroups("UI").First();
-
-            // Background Music
-            GameObject goMusic = new GameObject("Music");
-            goMusic.transform.SetParent(transform);
-
-            AudioSource musicSrc = goMusic.AddComponent<AudioSource>();
-            musicSrc.playOnAwake = false;
-            musicSrc.outputAudioMixerGroup = musicMG;
-
-            BackgroundMusic = new Sound(musicSrc);
-            // Sound Effect
-            GameObject goSoundEffect = new GameObject("SoundEffect");
-            goSoundEffect.transform.SetParent(transform);
-
-            for (int i = 0; i < MAX_EFFECT_SOUND_CAPACITY; i++)
-            {
-                AudioSource effectSrc = goSoundEffect.AddComponent<AudioSource>();
-                effectSrc.playOnAwake = false;
-                effectSrc.outputAudioMixerGroup = effectMG;
-
-                Sound effectSound = new Sound(effectSrc);
-                effectSound.onStop += EffectSoundStopped;
-
-                _availableEffectSounds.Push(effectSound);
-            }
-            // UI
-            GameObject goUI = new GameObject("UI");
-            goUI.transform.SetParent(transform);
-
-            for (int i = 0; i < MAX_UI_SOUND_CAPACITY; i++)
-            {
-                AudioSource uiSrc = goUI.AddComponent<AudioSource>();
-                uiSrc.playOnAwake = false;
-                uiSrc.outputAudioMixerGroup = uiMG;
-
-                Sound uiSound = new Sound(uiSrc);
-                uiSound.onStop += UISoundStopped;
-
-                _availableUISounds.Push(uiSound);
-            }
-
-            LoadSettings();
-
-            Message = "[AudioSystem] Successed.";
-
-            if (ShowLog)
-                GLogger.LogToFilter(Message, GLogFilter.System, this);
-
-            Status = SystemStatus.Success;
         }
 
         public void StopAll()
@@ -175,10 +85,10 @@ namespace Lab5Games
             if(ShowLog)
                 GLogger.LogToFilter("[AudioSystem] Load settings", GLogFilter.System, this);
 
-            MasterVolume = PlayerPrefs.GetFloat(KEY_MASTER_VOLUME, 1);
-            MusicVolume = PlayerPrefs.GetFloat(KEY_MUSIC_VOLUME, 1);
-            EffectVolume = PlayerPrefs.GetFloat(KEY_EFFECT_VOLUME, 1);
-            UIVolume = PlayerPrefs.GetFloat(KEY_UI_VOLUME, 1);
+            MasterVolume = PlayerPrefs.GetFloat(masterVolumeParameter, 1);
+            MusicVolume = PlayerPrefs.GetFloat(musicVolumeParameter, 1);
+            EffectVolume = PlayerPrefs.GetFloat(effectVolumeParameter, 1);
+            UIVolume = PlayerPrefs.GetFloat(uiVolumeParameter, 1);
         }
 
         public void SaveSettings()
@@ -186,10 +96,10 @@ namespace Lab5Games
             if(ShowLog)
                 GLogger.LogToFilter("[AudioSystem] Save settings", GLogFilter.System, this);
 
-            PlayerPrefs.SetFloat(KEY_MASTER_VOLUME, MasterVolume);
-            PlayerPrefs.SetFloat(KEY_MUSIC_VOLUME, MusicVolume);
-            PlayerPrefs.SetFloat(KEY_EFFECT_VOLUME, EffectVolume);
-            PlayerPrefs.SetFloat(KEY_UI_VOLUME, UIVolume);
+            PlayerPrefs.SetFloat(masterVolumeParameter, MasterVolume);
+            PlayerPrefs.SetFloat(musicVolumeParameter, MusicVolume);
+            PlayerPrefs.SetFloat(effectVolumeParameter, EffectVolume);
+            PlayerPrefs.SetFloat(uiVolumeParameter, UIVolume);
         }
 
         public void PlayBackgroundMusic(AudioClip clip, float volume)

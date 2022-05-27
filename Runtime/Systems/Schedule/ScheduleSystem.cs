@@ -4,13 +4,9 @@ using UnityEngine;
 
 namespace Lab5Games
 {
-    public class ScheduleSystem : Singleton<ScheduleSystem>, ISystem
+    public class ScheduleSystem : Singleton<ScheduleSystem>
     {
         public bool showLog = true;
-
-        public SystemStatus Status { get; private set; }
-        
-        public string Message { get; private set; }
 
         float _dt;
 
@@ -40,16 +36,6 @@ namespace Lab5Games
                     StartCoroutine((newSchedule as RoutineSchedule).Task());
                 }
             }
-        }
-
-        void Start()
-        {
-            Message = "[ScheduleSystem] Successed.";
-
-            if (showLog)
-                GLogger.LogToFilter(Message, GLogFilter.System, this);
-
-            Status = SystemStatus.Success;
         }
 
         void Update()
