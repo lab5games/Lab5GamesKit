@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using Sirenix.OdinInspector;
 
 namespace Lab5Games
 {
@@ -9,11 +10,10 @@ namespace Lab5Games
     {
         public bool ShowLog = true;
 
-        [SerializeField] AudioSource backgroundMusicSrc;
-        [SerializeField] AudioSource[] soundEffectSrc;
-        [SerializeField] AudioSource[] uiEffectSrc;
+        [SerializeField] int soundEffectCapacity = 8;
+        [SerializeField] int uiEffectCapacity = 6;
 
-        [SerializeField] AudioMixer audioMixer;
+        [SerializeField, Required] AudioMixer audioMixer;
         [SerializeField] string masterVolumeParameter = "MasterVolume";
         [SerializeField] string musicVolumeParameter = "MusicVolume";
         [SerializeField] string effectVolumeParameter = "EffectVolume";
@@ -23,7 +23,7 @@ namespace Lab5Games
         Stack<Sound> _availableUISounds = new Stack<Sound>();
         List<Sound> _playingEffectSounds = new List<Sound>();
         List<Sound> _playingUISounds = new List<Sound>();
-       
+
         public Sound BackgroundMusic { get; private set; }
 
         Sound NextAvailableSound(SoundType soundType)
@@ -69,19 +69,28 @@ namespace Lab5Games
         {
             // Background Music
             AudioMixerGroup musicGroup = audioMixer.FindMatchingGroups("Music").First();
-            backgroundMusicSrc.playOnAwake = false;
-            backgroundMusicSrc.outputAudioMixerGroup = musicGroup;
-            BackgroundMusic = new Sound(backgroundMusicSrc);
+
+            GameObject goMusic = new GameObject("Music");
+            goMusic.transform.SetParent(transform);
+
+            var bgmSrc = goMusic.AddComponent<AudioSource>();
+            bgmSrc.playOnAwake = false;
+            bgmSrc.outputAudioMixerGroup = musicGroup;
+            BackgroundMusic = new Sound(bgmSrc);
 
             // Sound Effect
             AudioMixerGroup effectGroup = audioMixer.FindMatchingGroups("SoundEffect").First();
 
-            for(int i=0; i<soundEffectSrc.Length; i++)
-            {
-                soundEffectSrc[i].playOnAwake = false;
-                soundEffectSrc[i].outputAudioMixerGroup = effectGroup;
+            GameObject goSFx = new GameObject("Sound Effect");
+            goSFx.transform.SetParent(transform);
 
-                Sound effectSound = new Sound(soundEffectSrc[i]);
+            for (int i=0; i<soundEffectCapacity; i++)
+            {
+                var audioSrc = goSFx.AddComponent<AudioSource>();
+                audioSrc.playOnAwake = false;
+                audioSrc.outputAudioMixerGroup = effectGroup;
+
+                Sound effectSound = new Sound(audioSrc);
                 effectSound.onStop += EffectSoundStopped;
 
                 _availableEffectSounds.Push(effectSound);
@@ -90,12 +99,16 @@ namespace Lab5Games
             // UI Effect
             AudioMixerGroup uiGroup = audioMixer.FindMatchingGroups("UI").First();
 
-            for(int i=0; i<uiEffectSrc.Length; i++)
-            {
-                uiEffectSrc[i].playOnAwake = false;
-                uiEffectSrc[i].outputAudioMixerGroup = uiGroup;
+            GameObject goUIFx = new GameObject("UI Effect");
+            goUIFx.transform.SetParent(transform);
 
-                Sound uiSound = new Sound(uiEffectSrc[i]);
+            for (int i=0; i<uiEffectCapacity; i++)
+            {
+                var audioSrc = goUIFx.AddComponent<AudioSource>();
+                audioSrc.playOnAwake = false;
+                audioSrc.outputAudioMixerGroup = effectGroup;
+
+                Sound uiSound = new Sound(audioSrc);
                 uiSound.onStop += UISoundStopped;
 
                 _availableUISounds.Push(uiSound);
