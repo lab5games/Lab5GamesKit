@@ -5,22 +5,22 @@ namespace Lab5Games.StateMachine
 {
     public delegate void StateChangeHandler(IState fromState, IState toState);
 
-    public class StateMachine
+    public class StateMachine<TState> where TState : class, IState
     {
         float _dt;
 
-        Dictionary<string, IState> states = new Dictionary<string, IState>();
-        Queue<IState> transitions = new Queue<IState>();
+        Dictionary<string, TState> states = new Dictionary<string, TState>();
+        Queue<TState> transitions = new Queue<TState>();
 
-        public IState CurrentState { get; protected set; }
-        public IState PreviousState { get; protected set; }
+        public TState CurrentState { get; protected set; }
+        public TState PreviousState { get; protected set; }
 
         
         public event StateChangeHandler onStateChanged;
 
-        public IState GetState(string stateName)
+        public TState GetState(string stateName)
         {
-            IState output = null;
+            TState output = null;
 
             states.TryGetValue(stateName, out output);
             return output;
@@ -31,7 +31,7 @@ namespace Lab5Games.StateMachine
             EnqueueTransition(GetState(stateName));
         }
 
-        public void EnqueueTransition(IState state)
+        public void EnqueueTransition(TState state)
         {
             if (state == null)
                 throw new ArgumentNullException(nameof(state));
@@ -44,7 +44,7 @@ namespace Lab5Games.StateMachine
             ForceState(GetState(stateName));
         }
 
-        public void ForceState(IState state)
+        public void ForceState(TState state)
         {
             if (state == null)
                 throw new ArgumentNullException(nameof(state));
@@ -56,7 +56,7 @@ namespace Lab5Games.StateMachine
             CurrentState?.EnterState(_dt, PreviousState);
         }
 
-        public virtual void AddState(IState state)
+        public virtual void AddState(TState state)
         {
             if(GetState(state.StateName) != null)
             {
@@ -73,7 +73,7 @@ namespace Lab5Games.StateMachine
             if (CurrentState == null)
                 return;
 
-            IState nextTransition = CheckTransitions();
+            TState nextTransition = CheckTransitions();
 
             transitions.Clear();
 
@@ -91,9 +91,9 @@ namespace Lab5Games.StateMachine
             CurrentState.UpdateState(_dt);
         }
 
-        IState CheckTransitions()
+        TState CheckTransitions()
         {
-            IState next = null;
+            TState next = null;
 
             while(transitions.Count > 0)
             {
