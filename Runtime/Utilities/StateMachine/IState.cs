@@ -30,6 +30,6 @@ namespace Lab5Games.StateMachine
         /// </summary>
         /// <param name="toState"></param>
         /// <returns></returns>
-        public abstract bool CheckEnterTransition(IState toState);
+        public abstract bool CheckTransition(IState toState);
     }
 }

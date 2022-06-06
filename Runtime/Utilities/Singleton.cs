@@ -6,7 +6,7 @@ namespace Lab5Games
     {
         public virtual bool IsPersistent => false;
 
-        public static T Instance { get; private set; }
+        public static T Instance { get; private set; } = null;
 
         protected virtual void Awake()
         {
@@ -26,6 +26,8 @@ namespace Lab5Games
 
         protected virtual void OnDestroy()
         {
+            Instance = null;
+
             GLogger.LogAsType($"[Singleton] {typeof(T).Name} instance  destroyed", GLogType.Log, this);
         }
     }

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace Lab5Games.StateMachine
@@ -17,6 +18,11 @@ namespace Lab5Games.StateMachine
 
         
         public event StateChangeHandler onStateChanged;
+
+        public string[] GetStateNames()
+        {
+            return states.Keys.ToArray();
+        }
 
         public TState GetState(string stateName)
         {
@@ -102,7 +108,7 @@ namespace Lab5Games.StateMachine
                 if (next == null)
                     continue;
 
-                if(CurrentState.CheckEnterTransition(next))
+                if(CurrentState.CheckTransition(next))
                 {
                     return next;
                 }
