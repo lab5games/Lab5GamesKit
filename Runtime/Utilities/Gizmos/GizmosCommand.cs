@@ -4,10 +4,14 @@ namespace Lab5Games
 {
     public abstract class GizmosCommand
     {
+        public readonly float StartTime;
+        public float Duration { get; set; } = 1;
+
         public Color GizmosColor { get; set; }
 
         public GizmosCommand(Color color)
         {
+            this.StartTime = Time.time;
             this.GizmosColor = color;
         }
 

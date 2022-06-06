@@ -8,14 +8,29 @@ namespace Lab5Games
 
         public static void AddCommand(GizmosCommand cmd)
         {
-            Instance.commands.Push(cmd);
+            if (Instance == null)
+                return;
+
+
+            if(!Instance.commands.Contains(cmd))
+                Instance.commands.Push(cmd);
         }
 
         private void OnDrawGizmos()
         {
+            float t = UnityEngine.Time.time;
+
             while(commands.Count > 0)
             {
-                commands.Pop().Draw();
+                var cmd = commands.Peek();
+                
+                cmd.Draw();
+
+                if (UnityEngine.Application.isPlaying)
+                {
+                    if (t >= cmd.StartTime + cmd.Duration)
+                        commands.Pop();
+                }
             }
         }
     }
