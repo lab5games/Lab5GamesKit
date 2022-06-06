@@ -4,7 +4,7 @@ namespace Lab5Games
 {
     public class GizmosDrawer : Singleton<GizmosDrawer>
     {
-        Stack<GizmosCommand> commands = new Stack<GizmosCommand>();
+        List<GizmosCommand> commands = new List<GizmosCommand>();
 
         public static void AddCommand(GizmosCommand cmd)
         {
@@ -13,24 +13,21 @@ namespace Lab5Games
 
 
             if(!Instance.commands.Contains(cmd))
-                Instance.commands.Push(cmd);
+                Instance.commands.Add(cmd);
         }
 
         private void OnDrawGizmos()
         {
             float t = UnityEngine.Time.time;
 
-            while(commands.Count > 0)
+            for(int i=commands.Count-1; i>=0; i--)
             {
-                var cmd = commands.Peek();
-                
+                var cmd = commands[i];
+
                 cmd.Draw();
 
-                if (UnityEngine.Application.isPlaying)
-                {
-                    if (t >= cmd.StartTime + cmd.Duration)
-                        commands.Pop();
-                }
+                if (t > cmd.StartTime + cmd.Duration)
+                    commands.RemoveAt(i);
             }
         }
     }
