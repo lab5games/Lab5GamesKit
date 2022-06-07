@@ -347,21 +347,20 @@ namespace Lab5Games
 			DrawPlane(self.position, self.position + (self.forward * width), self.up, height, color);
 		}
 
-		public static void DrawSphere(Transform self, bool isWire = false, Color color = default(Color))
+		public static void DrawSphere(Transform self, Color color = default(Color))
 		{
-			DrawSphere(self.position, self.localScale.x, isWire, color);
+			DrawSphere(self.position, self.localScale.x, color);
 		}
 
 		/// <summary>Draw Sphere</summary>
 		/// <param name="position"></param>
 		/// <param name="radius"></param>
 		/// <param name="color"></param>
-		public static void DrawSphere(Vector3 position, float radius, bool isWire = false, Color color = default(Color))
+		public static void DrawSphere(Vector3 position, float radius, Color color = default(Color))
 		{
 			using (new ColorScope(color))
 			{
-				if (isWire) Gizmos.DrawWireSphere(position, radius);
-				else Gizmos.DrawSphere(position, radius);
+				Gizmos.DrawSphere(position, radius);
 			}
 		}
 
