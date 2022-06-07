@@ -66,8 +66,8 @@ namespace Lab5Games
 
         public void Tick(float dt)
         {
-            Started |= !previouseValue && value;
-            Canceled |= previouseValue && !value;
+            Started = !previouseValue && value;
+            Canceled = previouseValue && !value;
 
             StartedElpasedTime += dt;
             CanceledElpasedTime += dt;
