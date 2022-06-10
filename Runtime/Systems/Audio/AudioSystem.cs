@@ -116,8 +116,6 @@ namespace Lab5Games
 
                 _availableUISounds.Push(uiSound);
             }
-
-            LoadSettings();
         }
 
         void Update()
