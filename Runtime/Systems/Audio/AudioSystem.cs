@@ -77,7 +77,7 @@ namespace Lab5Games
             {
                 GLogger.LogToFilter("AudioMixer missing", GLogFilter.System, this);
 
-                this.audioMixer = (AudioMixer)UnityEditor.AssetDatabase.LoadAssetAtPath("Packages/com.lab5games.lab5gameskit/Runtime/Systems/Audio/Lab5_AudioMixer", typeof(AudioMixer));
+                this.audioMixer = (AudioMixer)UnityEditor.AssetDatabase.LoadAssetAtPath("Packages/com.lab5games.lab5gameskit/Runtime/Systems/Audio/Lab5_AudioMixer.mixer", typeof(AudioMixer));
             }
         }
 #endif
