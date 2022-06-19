@@ -13,7 +13,9 @@ namespace Lab5Games
         [SerializeField] int soundEffectCapacity = 8;
         [SerializeField] int uiEffectCapacity = 6;
 
-        [SerializeField, Required] AudioMixer audioMixer;
+        [OnInspectorInit("FindAudioMixer")]
+        [SerializeField, Required] 
+        AudioMixer audioMixer;
         [SerializeField] string masterVolumeParameter = "MasterVolume";
         [SerializeField] string musicVolumeParameter = "MusicVolume";
         [SerializeField] string effectVolumeParameter = "EffectVolume";
@@ -67,6 +69,18 @@ namespace Lab5Games
                 _availableUISounds.Push(sound);
             }
         }
+
+#if UNITY_EDITOR
+        void FindAudioMixer()
+        {
+            if (this.audioMixer == null)
+            {
+                GLogger.LogToFilter("AudioMixer missing", GLogFilter.System, this);
+
+                this.audioMixer = (AudioMixer)UnityEditor.AssetDatabase.LoadAssetAtPath("Packages/com.lab5games.lab5gameskit/Runtime/Systems/Audio/Lab5_AudioMixer", typeof(AudioMixer));
+            }
+        }
+#endif
 
         private void Start()
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Lab5Games
@@ -55,20 +56,15 @@ namespace Lab5Games
 
         public async void FadeOutAndStop(float duration)
         {
-            await RoutineSchedule.Create(TaskFadeOut(duration));
-
-            Stop();
-        }
-
-        IEnumerator TaskFadeOut(float duration)
-        {
             float startVolume = _audio.volume;
 
             while(_audio.volume > 0)
             {
-                _audio.volume -= Time.deltaTime * startVolume / duration;
-                yield return Yielders.EndOfFrame;
+                _audio.volume -= ((startVolume / duration) * Time.deltaTime);
+                await Task.Yield();
             }
+
+            Stop();
         }
     }
 }
