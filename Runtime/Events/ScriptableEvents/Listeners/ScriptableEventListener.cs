@@ -8,7 +8,7 @@ namespace Lab5Games.Events
         void OnEvent(TObject obj);
     }
 
-    public abstract class ScriptableEventListener<TObject, E, H> : IScriptableEventListener<TObject> where E : ScriptableEvent<TObject> where H : UnityEvent<TObject>
+    public abstract class ScriptableEventListener<TObject, E, H> : MonoBehaviour, IScriptableEventListener<TObject> where E : ScriptableEvent<TObject> where H : UnityEvent<TObject>
     {
         [SerializeField] private E GameEvent;
         [SerializeField] private H Handler;
