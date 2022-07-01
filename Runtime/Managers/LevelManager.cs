@@ -6,6 +6,8 @@ namespace Lab5Games
 {
     public class LevelManager : ComponentSingleton<LevelManager>
     {
+        public override bool IsPersistent => true;
+
         static List<LevelOperation> _loadingLevels = new List<LevelOperation>();
 
         public static LevelOperation LoadLevel(string levelName, LoadSceneMode mode, bool visibleOnLoaded = true)

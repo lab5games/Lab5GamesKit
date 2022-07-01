@@ -5,7 +5,7 @@ namespace Lab5Games
 {
     public abstract class ComponentSingleton<T> : MonoBehaviour where T : MonoBehaviour
     {
-        public virtual bool IsPersistent => false;
+        public abstract bool IsPersistent { get; }
 
         private static T _istance = null;
         public static T Instance => _istance;

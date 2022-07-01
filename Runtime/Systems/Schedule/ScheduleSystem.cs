@@ -6,6 +6,8 @@ namespace Lab5Games
 {
     public class ScheduleSystem : ComponentSingleton<ScheduleSystem>
     {
+        public override bool IsPersistent => true;
+
         public bool showLog = true;
 
         float _dt;

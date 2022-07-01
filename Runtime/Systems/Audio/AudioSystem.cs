@@ -8,6 +8,8 @@ namespace Lab5Games
 {
     public partial class AudioSystem : ComponentSingleton<AudioSystem>
     {
+        public override bool IsPersistent => true;
+
         public bool ShowLog = true;
 
         [SerializeField] int soundEffectCapacity = 8;
