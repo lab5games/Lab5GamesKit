@@ -36,6 +36,15 @@ namespace Lab5Games.Events
             }
         }
 
+        public static void Post(int event_id, object param = null)
+        {
+            TypeEvent thisEvent = null;
+            if (_eventTable.TryGetValue(event_id, out thisEvent))
+            {
+                thisEvent.Invoke(param);
+            }
+        }
+
         public static void Clear(int event_id)
         {
             _eventTable.Remove(event_id);
