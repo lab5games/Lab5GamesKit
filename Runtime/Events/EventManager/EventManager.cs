@@ -9,12 +9,12 @@ namespace Lab5Games.Events
 
     public static class EventManager
     {
-        static Dictionary<int, TypeEvent> _eventTables = new Dictionary<int, TypeEvent>();
-        
-        public static void RegisterListener(int event_id, UnityAction<object> listener)
+        static Dictionary<int, TypeEvent> _eventTable = new Dictionary<int, TypeEvent>();
+
+        public static void RegisterObserver(int event_id, UnityAction<object> listener)
         {
             TypeEvent thisEvent = null;
-            if(_eventTables.TryGetValue(event_id, out thisEvent))
+            if(_eventTable.TryGetValue(event_id, out thisEvent))
             {
                 thisEvent.AddListener(listener);
             }
@@ -23,36 +23,27 @@ namespace Lab5Games.Events
                 thisEvent = new TypeEvent();
                 thisEvent.AddListener(listener);
 
-                _eventTables.Add(event_id, thisEvent);
+                _eventTable.Add(event_id, thisEvent);
             }
         }
 
-        public static void UnregisterListener(int event_id, UnityAction<object> listener)
+        public static void UnregisterObserver(int event_id, UnityAction<object> listener)
         {
             TypeEvent thisEvent = null;
-            if(_eventTables.TryGetValue(event_id, out thisEvent))
+            if(_eventTable.TryGetValue(event_id, out thisEvent))
             {
                 thisEvent.RemoveListener(listener);
             }
         }
 
-        public static void Post(int event_id, object param = null)
+        public static void Clear(int event_id)
         {
-            TypeEvent thisEvent = null;
-            if(_eventTables.TryGetValue(event_id, out thisEvent))
-            {
-                thisEvent.Invoke(param);
-            }
-        }
-
-        public static void Clera(int event_id)
-        {
-            _eventTables.Remove(event_id);
+            _eventTable.Remove(event_id);
         }
 
         public static void Clear()
         {
-            _eventTables.Clear();
+            _eventTable.Clear();
         }
     }
 }

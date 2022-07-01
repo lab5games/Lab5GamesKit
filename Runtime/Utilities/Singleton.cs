@@ -1,34 +1,27 @@
-using UnityEngine;
+using System;
 
 namespace Lab5Games
 {
-    public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
+    public abstract class Singleton<T> : IDisposable where T : class, new()
     {
-        public virtual bool IsPersistent => false;
-
-        public static T Instance { get; private set; } = null;
-
-        protected virtual void Awake()
+        private static T _instance = null;
+        
+        public static T Instance
         {
-            if(Instance != null)
+            get
             {
-                GLogger.LogAsType($"[Singleton] There should never be more than one {typeof(T).Name} in the scene", GLogType.Warning);
-                Destroy(gameObject);
-                return;
+                if(_instance == null)
+                {
+                    _instance = new T();
+                }
+
+                return _instance;
             }
-
-
-            Instance = this as T;
-
-            if (IsPersistent)
-                DontDestroyOnLoad(gameObject);
         }
 
-        protected virtual void OnDestroy()
+        public virtual void Dispose()
         {
-            Instance = null;
-
-            GLogger.LogAsType($"[Singleton] {typeof(T).Name} instance  destroyed", GLogType.Log, this);
+            _instance = null;
         }
     }
 }

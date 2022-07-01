@@ -4,7 +4,10 @@ using UnityEngine.Events;
 namespace Lab5Games.Events
 {
     [System.Serializable]
-    public struct Void { }
+    public struct Void
+    {
+        public static readonly Void Default = new Void();
+    }
 
     [System.Serializable]
     public class UnityVoidEvent : UnityEvent<Void> { }
@@ -12,8 +15,6 @@ namespace Lab5Games.Events
     [CreateAssetMenu(fileName ="New Void Event", menuName =MENU_NAME + "Void Event")]
     public class ScriptableVoidEvent : ScriptableEvent<Void>
     {
-        readonly Void data = new Void();
-
-        public void Raise() => Raise(data);
+        public void Raise() => Raise(Void.Default);
     }
 }
