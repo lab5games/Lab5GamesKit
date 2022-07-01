@@ -6,7 +6,7 @@ using Sirenix.OdinInspector;
 
 namespace Lab5Games
 {
-    public partial class AudioSystem : Singleton<AudioSystem>
+    public partial class AudioSystem : ComponentSingleton<AudioSystem>
     {
         public bool ShowLog = true;
 

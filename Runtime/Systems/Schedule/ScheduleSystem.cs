@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Lab5Games
 {
-    public class ScheduleSystem : Singleton<ScheduleSystem>
+    public class ScheduleSystem : ComponentSingleton<ScheduleSystem>
     {
         public bool showLog = true;
 

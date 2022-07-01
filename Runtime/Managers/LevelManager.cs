@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 namespace Lab5Games
 {
-    public class LevelManager : Singleton<LevelManager>
+    public class LevelManager : ComponentSingleton<LevelManager>
     {
         static List<LevelOperation> _loadingLevels = new List<LevelOperation>();
 
