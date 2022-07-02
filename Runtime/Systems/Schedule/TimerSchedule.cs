@@ -2,11 +2,11 @@
 
 namespace Lab5Games
 {
-    public class TimeSchedule : Schedule, IAwaitable<TimeSchedule>, IAwaiter
+    public class TimerSchedule : Schedule, IAwaitable<TimerSchedule>, IAwaiter
     {
-        public static TimeSchedule Create(float time, bool autoStart = true)
+        public static TimerSchedule Create(float time, bool autoStart = true)
         {
-            TimeSchedule schedule = new TimeSchedule(time);
+            TimerSchedule schedule = new TimerSchedule(time);
 
             if (autoStart)
                 schedule.Start();
@@ -16,7 +16,7 @@ namespace Lab5Games
 
         float _time;
         
-        public TimeSchedule(float time)
+        public TimerSchedule(float time)
         {
             _time = time;
         }
@@ -50,7 +50,7 @@ namespace Lab5Games
             onCanceled += continuation;
         }
 
-        public TimeSchedule GetAwaiter()
+        public TimerSchedule GetAwaiter()
         {
             return this;
         }

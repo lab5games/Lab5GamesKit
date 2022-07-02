@@ -33,9 +33,9 @@ namespace Lab5Games
             {
                 _scheduleList.Add(newSchedule);
 
-                if (newSchedule is RoutineSchedule)
+                if (newSchedule is CoroutineSchedule)
                 {
-                    StartCoroutine((newSchedule as RoutineSchedule).Task());
+                    StartCoroutine((newSchedule as CoroutineSchedule).Task());
                 }
             }
         }

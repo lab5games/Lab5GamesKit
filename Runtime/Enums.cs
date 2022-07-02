@@ -32,22 +32,6 @@ namespace Lab5Games
         UI
     }
 
-    public enum GLogType
-    {
-        Log,
-        Warning,
-        Error,
-        Exception,
-        Assert
-    }
-
-    public enum GLogFilter
-    {
-        System,
-        Network,
-        Game
-    }
-
     public enum EaseTypes
     {
         Linear = 0,

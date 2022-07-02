@@ -3,14 +3,14 @@ using System.Collections;
 
 namespace Lab5Games
 {
-    public class RoutineSchedule : Schedule, IAwaitable<RoutineSchedule>, IAwaiter
+    public class CoroutineSchedule : Schedule, IAwaitable<CoroutineSchedule>, IAwaiter
     {
-        public static RoutineSchedule Create(IEnumerator task, bool autoStart = true)
+        public static CoroutineSchedule Create(IEnumerator task, bool autoStart = true)
         {
             if (task == null)
                 throw new ArgumentNullException(nameof(task));
 
-            RoutineSchedule schedule = new RoutineSchedule(task);
+            CoroutineSchedule schedule = new CoroutineSchedule(task);
 
             if (autoStart)
                 schedule.Start();
@@ -21,7 +21,7 @@ namespace Lab5Games
         IEnumerator _task;
         bool _running = false;
 
-        private RoutineSchedule(IEnumerator task)
+        private CoroutineSchedule(IEnumerator task)
         {
             _task = task;
         }
@@ -82,7 +82,7 @@ namespace Lab5Games
             onCanceled += continuation;
         }
 
-        public RoutineSchedule GetAwaiter()
+        public CoroutineSchedule GetAwaiter()
         {
             return this;
         }
