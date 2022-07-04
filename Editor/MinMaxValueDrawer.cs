@@ -6,8 +6,17 @@ using Sirenix.Utilities.Editor;
 
 namespace Lab5Games.Editor
 {
-    public class MinMaxValueDrawer : OdinValueDrawer<Lab5Games.MinMaxValue>
+    public class MinMaxValueDrawer : OdinValueDrawer<MinMaxValue>
     {
+		InspectorProperty min;
+		InspectorProperty max;
+
+        protected override void Initialize()
+        {
+			min = this.Property.Children["min"];
+			max = this.Property.Children["max"];
+        }
+
         protected override void DrawPropertyLayout(GUIContent label)
         {
 			Rect rect = EditorGUILayout.GetControlRect();
@@ -17,13 +26,18 @@ namespace Lab5Games.Editor
 				rect = EditorGUI.PrefixLabel(rect, label);
 			}
 
-			var value = this.ValueEntry.SmartValue;
-			GUIHelper.PushLabelWidth(20);
-			value.min = EditorGUI.FloatField(rect.AlignLeft(rect.width * 0.46f), "min", value.min);
-			value.max = EditorGUI.FloatField(rect.AlignRight(rect.width * 0.46f), "max", value.max);
-			GUIHelper.PopLabelWidth();
+			rect = EditorGUILayout.GetControlRect();
 
-			this.ValueEntry.SmartValue = value;
+			GUIHelper.PushLabelWidth(75);
+			min.ValueEntry.WeakSmartValue = SirenixEditorFields.FloatField(
+				rect.Split(0, 2),
+				"Min",
+				(float)min.ValueEntry.WeakSmartValue);
+			max.ValueEntry.WeakSmartValue = SirenixEditorFields.FloatField(
+				rect.Split(1, 2),
+				"Max",
+				(float)max.ValueEntry.WeakSmartValue);
+			GUIHelper.PopLabelWidth();
 		}
     }
 }

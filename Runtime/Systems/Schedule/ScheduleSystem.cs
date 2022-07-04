@@ -13,6 +13,7 @@ namespace Lab5Games
         float _dt;
 
         List<Schedule> _scheduleList = new List<Schedule>();
+        List<LevelOperation> _levelOperationList = new List<LevelOperation>();
 
         public void StopAll()
         {
@@ -40,6 +41,12 @@ namespace Lab5Games
             }
         }
 
+        internal void AddLevelOperation(LevelOperation levelOp)
+        {
+            _levelOperationList.Add(levelOp);
+        }
+        
+
         void Update()
         {
             _dt = Time.deltaTime;
@@ -56,6 +63,27 @@ namespace Lab5Games
                 if(schedule.Status == ScheduleStatus.Canceled || schedule.Status == ScheduleStatus.Completed)
                 {
                     _scheduleList.RemoveAt(i);
+                }
+            }
+        }
+
+        private void LateUpdate()
+        {
+            _dt = Time.deltaTime;
+
+            for(int i=_levelOperationList.Count-1; i>=0; i--)
+            {
+                var levelOp = _levelOperationList[i];
+
+                if(levelOp.Status == ScheduleStatus.Running)
+                {
+                    levelOp.Tick(_dt);
+                }
+
+                if(levelOp.Status == ScheduleStatus.Canceled ||
+                    levelOp.Status == ScheduleStatus.Completed)
+                {
+                    _levelOperationList.RemoveAt(i);
                 }
             }
         }

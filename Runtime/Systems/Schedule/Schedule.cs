@@ -27,13 +27,19 @@ namespace Lab5Games
         {
             if(Status == ScheduleStatus.Ready)
             {
+                if(ScheduleSystem.Instance == null)
+                {
+                    GLogger.LogAsType("There needs a ScheduleSystem to start this schedule", GLogType.Error);
+                    return;
+                }
+
                 Status = ScheduleStatus.Running;
 
                 ScheduleSystem.Instance.AddSchedule(this);
             }
         }
 
-        public void Complete()
+        public virtual void Complete()
         {
             if (Status == ScheduleStatus.Running || Status == ScheduleStatus.Paused)
             {
@@ -43,7 +49,7 @@ namespace Lab5Games
             }
         }
 
-        public void Cancel()
+        public virtual void Cancel()
         {
             if (Status == ScheduleStatus.Running || Status == ScheduleStatus.Paused)
             {
@@ -53,13 +59,13 @@ namespace Lab5Games
             }
         }
 
-        public void Pause()
+        public virtual void Pause()
         {
             if(Status == ScheduleStatus.Running)
                 Status = ScheduleStatus.Paused;
         }
 
-        public void Unpause()
+        public virtual void Unpause()
         {
             if(Status == ScheduleStatus.Paused)
                 Status = ScheduleStatus.Running;
