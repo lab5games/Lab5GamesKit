@@ -7,8 +7,6 @@ namespace Lab5Games
 {
     public static class LevelManager 
     {
-        static List<LevelOperation> _loadingLevels = new List<LevelOperation>();
-
         public static Action<string> levelLoaded;
         public static Action<string> levelUnloaded; 
 
@@ -34,11 +32,30 @@ namespace Lab5Games
             GLogger.LogToFilter($"[LevelManager] Load {levelName} level...", GLogFilter.System);
 
             var asyncOp = SceneManager.LoadSceneAsync(levelName, mode);
-            LevelOperation operation = new LevelOperation(levelName, asyncOp, visibleOnLoaded);
+            LevelOperation levelOp = new LevelOperation(levelName, asyncOp, visibleOnLoaded);
 
-            _loadingLevels.Add(operation);
+            levelOp.Start();
 
-            return operation;
+            return levelOp;
+        }
+
+        public static LevelOperation LoadLevel(LevelReference levelRef, LoadSceneMode mode, bool visibleOnLoaded = true)
+        {
+            GLogger.LogToFilter($"[LevelManager] Load {levelRef.LevelName} level...", GLogFilter.System);
+
+            var asyncOp = SceneManager.LoadSceneAsync(levelRef.LevelName, mode);
+            LevelOperation levelOp = new LevelOperation(levelRef.LevelName, asyncOp, visibleOnLoaded);
+
+            levelOp.Start();
+
+            return levelOp;
+        }
+
+        public static async void UnloadLevel(LevelReference levelRef)
+        {
+            GLogger.LogToFilter($"[LevelManager] Unload {levelRef.LevelName} level...", GLogFilter.System);
+
+            await SceneManager.UnloadSceneAsync(levelRef.LevelName);
         }
 
         public static async void UnloadLevel(string levelName)

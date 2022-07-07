@@ -4,11 +4,9 @@ using UnityEngine;
 
 namespace Lab5Games
 {
-    public class ScheduleSystem : ComponentSingleton<ScheduleSystem>
+    public class ScheduleManager : ComponentSingleton<ScheduleManager>
     {
-        public override bool IsPersistent => true;
-
-        public bool showLog = true;
+        public override bool IsPersistent => false;
 
         float _dt;
 
@@ -17,10 +15,10 @@ namespace Lab5Games
 
         public void StopAll()
         {
-            if(showLog)
-                GLogger.LogToFilter("[ScheduleSystem] Stop all schedules.", GLogFilter.System, this);
+            GLogger.LogToFilter("[ScheduleManager] Stop all schedules.", GLogFilter.System, this);
 
-            foreach(var schedule in _scheduleList)
+
+            foreach (var schedule in _scheduleList)
             {
                 schedule.Cancel();
             }

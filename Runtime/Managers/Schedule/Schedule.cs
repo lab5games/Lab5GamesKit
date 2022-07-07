@@ -27,7 +27,7 @@ namespace Lab5Games
         {
             if(Status == ScheduleStatus.Ready)
             {
-                if(ScheduleSystem.Instance == null)
+                if(ScheduleManager.Instance == null)
                 {
                     GLogger.LogAsType("There needs a ScheduleSystem to start this schedule", GLogType.Error);
                     return;
@@ -35,7 +35,7 @@ namespace Lab5Games
 
                 Status = ScheduleStatus.Running;
 
-                ScheduleSystem.Instance.AddSchedule(this);
+                ScheduleManager.Instance.AddSchedule(this);
             }
         }
 

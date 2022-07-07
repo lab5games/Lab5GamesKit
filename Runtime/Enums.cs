@@ -28,7 +28,7 @@ namespace Lab5Games
     public enum SoundType
     {
         Music,
-        Effect,
+        SFX,
         UI
     }
 
