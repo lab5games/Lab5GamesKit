@@ -1,10 +1,12 @@
 using System;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 namespace Lab5Games
 {
     public abstract class ComponentSingleton<T> : MonoBehaviour where T : MonoBehaviour
     {
+        [ShowInInspector, PropertyOrder(-99)]
         public abstract bool IsPersistent { get; }
 
         private static T _istance = null;
