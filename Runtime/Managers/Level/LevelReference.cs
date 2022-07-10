@@ -72,6 +72,11 @@ namespace Lab5Games
             get => _levelName;
         }
 
+        public static implicit operator string(LevelReference levelReference)
+        {
+            return levelReference.LevelName;
+        }
+
         public void OnBeforeSerialize()
         {
 #if UNITY_EDITOR
