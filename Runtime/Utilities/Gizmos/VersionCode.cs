@@ -47,7 +47,7 @@ namespace Lab5Games
 
         public override string ToString()
         {
-            return $"({Major}.{Minor}.{Revision})";
+            return $"Version: {Version}";
         }
 
         public static bool operator ==(VersionCode a, VersionCode b) => a.Equals(b);
