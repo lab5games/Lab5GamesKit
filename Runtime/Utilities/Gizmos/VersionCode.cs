@@ -1,9 +1,10 @@
 using System;
+using System.Runtime.Serialization;
 
 namespace Lab5Games
 {
     [System.Serializable]
-    public struct VersionCode : IEquatable<VersionCode>
+    public struct VersionCode : IEquatable<VersionCode>, ISerializationSurrogate
     {
         public int Major;
         public int Minor;
@@ -52,5 +53,23 @@ namespace Lab5Games
 
         public static bool operator ==(VersionCode a, VersionCode b) => a.Equals(b);
         public static bool operator !=(VersionCode a, VersionCode b) => !a.Equals(b);
+
+        public void GetObjectData(object obj, SerializationInfo info, StreamingContext context)
+        {
+            VersionCode data = (VersionCode)obj;
+            info.AddValue("Major", data.Major);
+            info.AddValue("Minor", data.Major);
+            info.AddValue("Revision", data.Revision);
+        }
+
+        public object SetObjectData(object obj, SerializationInfo info, StreamingContext context, ISurrogateSelector selector)
+        {
+            VersionCode data = (VersionCode)obj;
+            data.Major = info.GetInt32("Major");
+            data.Minor = info.GetInt32("Minor");
+            data.Revision = info.GetInt32("Revision");
+            obj = data;
+            return obj;
+        }
     }
 }
