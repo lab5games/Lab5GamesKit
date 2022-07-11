@@ -6,10 +6,10 @@ namespace Lab5Games
     [System.Serializable]
     public struct VersionCode : IEquatable<VersionCode>
     {
-        [SerializeField] int Major;
-        [SerializeField] int Minor;
-        [SerializeField] int Revision;
-        [SerializeField] string CreatedDate;
+        public int Major;
+        public int Minor;
+        public int Revision;
+        public string CreatedDate;
 
         public string Code => $"{Major}.{Minor}.{Revision}";
         public string Date => string.IsNullOrEmpty(CreatedDate) ? "" : CreatedDate;
