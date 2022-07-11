@@ -62,7 +62,7 @@ namespace Lab5Games.Editor
                 if(isValidInput)
                 {
                     property_Date.ValueEntry.WeakSmartValue = DateTime.Now.ToString("MM-dd-yyyy");
-                    Debug.Log("version created date changed");
+                    //Debug.Log("version created date changed");
                 }
             }
 
