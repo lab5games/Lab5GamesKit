@@ -3,6 +3,7 @@ using UnityEditor;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities.Editor;
+using System;
 
 namespace Lab5Games.Editor
 {
@@ -14,26 +15,34 @@ namespace Lab5Games.Editor
         InspectorProperty property_Major;
         InspectorProperty property_Minor;
         InspectorProperty property_Revision;
+        InspectorProperty property_Date;
 
         protected override void Initialize()
         {
             property_Major = this.ValueEntry.Property.Children["Major"];
             property_Minor = this.ValueEntry.Property.Children["Minor"];
             property_Revision = this.ValueEntry.Property.Children["Revision"];
+            property_Date = this.ValueEntry.Property.Children["CreatedDate"];
         }
 
         protected override void DrawPropertyLayout(GUIContent label)
         {
-            displayVersion = this.ValueEntry.SmartValue.Version;
-            displayVersion = SirenixEditorFields.TextField(label, displayVersion);
+            SirenixEditorGUI.BeginBox(label);
 
-            SirenixEditorGUI.BeginShakeableGroup(key);
+            displayVersion = this.ValueEntry.SmartValue.Code;
+
+            EditorGUI.BeginChangeCheck();
+            {
+                displayVersion = SirenixEditorFields.TextField("Code", displayVersion);
+            }
 
             string[] codes = displayVersion.Split('.');
-            
-            if(codes.Length == 3)
+
+            bool isValidInput = false;
+
+            if (codes.Length == 3)
             {
-                bool isValidInput = true;
+                isValidInput = true;
 
                 isValidInput &= int.TryParse(codes[0], out int major);
                 isValidInput &= int.TryParse(codes[1], out int minor);
@@ -44,19 +53,24 @@ namespace Lab5Games.Editor
                     property_Major.ValueEntry.WeakSmartValue = major;
                     property_Minor.ValueEntry.WeakSmartValue = minor;   
                     property_Revision.ValueEntry.WeakSmartValue = revision;
-                }
-                else
-                {
-                    SirenixEditorGUI.StartShakingGroup(key, 0.5f);
+                    
                 }
             }
-            else
-            {
-                SirenixEditorGUI.StartShakingGroup(key, 0.5f);
-            }
-            
 
-            SirenixEditorGUI.EndShakeableGroup(key);
+            if(EditorGUI.EndChangeCheck())
+            {
+                if(isValidInput)
+                {
+                    property_Date.ValueEntry.WeakSmartValue = DateTime.Now.ToString("MM-dd-yyyy");
+                    Debug.Log("version created date changed");
+                }
+            }
+
+            GUI.enabled = false;
+            SirenixEditorFields.TextField("Full Version", this.ValueEntry.SmartValue.FullVersion);
+            GUI.enabled = true;
+
+            SirenixEditorGUI.EndBox();
         }
     }
 }

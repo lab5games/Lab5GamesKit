@@ -1,21 +1,26 @@
 using System;
+using UnityEngine;
 
 namespace Lab5Games
 {
     [System.Serializable]
     public struct VersionCode : IEquatable<VersionCode>
     {
-        public int Major;
-        public int Minor;
-        public int Revision;
+        [SerializeField] int Major;
+        [SerializeField] int Minor;
+        [SerializeField] int Revision;
+        [SerializeField] string CreatedDate;
 
-        public string Version => $"{Major}.{Minor}.{Revision}";
+        public string Code => $"{Major}.{Minor}.{Revision}";
+        public string Date => string.IsNullOrEmpty(CreatedDate) ? "" : CreatedDate;
+        public string FullVersion => $"{Code}({Date})";
 
         public VersionCode(int major, int minor, int revision)
         {
             Major = major;
             Minor = minor;
             Revision = revision;
+            CreatedDate = string.Empty;
         }
 
         public VersionCode(string strVersion)
@@ -28,6 +33,7 @@ namespace Lab5Games
             Major = int.Parse(codes[0]);    
             Minor = int.Parse(codes[1]);
             Revision = int.Parse(codes[2]);
+            CreatedDate = string.Empty;
         }
 
         public bool Equals(VersionCode other)
@@ -47,7 +53,7 @@ namespace Lab5Games
 
         public override string ToString()
         {
-            return $"Version: {Version}";
+            return $"Version: {Code}";
         }
 
         public static bool operator ==(VersionCode a, VersionCode b) => a.Equals(b);
