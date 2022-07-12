@@ -17,6 +17,9 @@ namespace Lab5Games
         public const string KEY_SFX_VOLUME = "SFX_Volume";
         public const string KEY_UI_VOLUME = "UI_Volume";
 
+        [ShowInInspector, PropertyOrder(-1), ReadOnly]
+        public bool IsMute { get; private set; } = false;
+
         [SerializeField]
         AudioMixer audioMixer;
 
@@ -59,12 +62,12 @@ namespace Lab5Games
             }
         }
 
-        [PropertyOrder(2)]
+        [PropertyOrder(3)]
         [TabGroup("SFX"), SerializeField]
         [LabelText("Group"), ShowIf("@this.audioMixer != null")]
         AudioMixerGroup sfxGroup;
 
-        [PropertyOrder(2), PropertyRange(0f, 1f)]
+        [PropertyOrder(3), PropertyRange(0f, 1f)]
         [TabGroup("SFX"), ShowInInspector]
         [InfoBox("Exposed parameter named 'SFX_Volume'")]
         [LabelText("Volume"), ShowIf("@this.audioMixer != null && this.sfxGroup != null")]
@@ -81,12 +84,12 @@ namespace Lab5Games
             }
         }
 
-        [PropertyOrder(2)]
+        [PropertyOrder(4)]
         [TabGroup("UI"), SerializeField]
         [LabelText("Group"), ShowIf("@this.audioMixer != null")]
         AudioMixerGroup uiGroup;
 
-        [PropertyOrder(2), PropertyRange(0f, 1f)]
+        [PropertyOrder(4), PropertyRange(0f, 1f)]
         [TabGroup("UI"), ShowInInspector]
         [InfoBox("Exposed parameter named 'UI_Volume'")]
         [LabelText("Volume"), ShowIf("@this.audioMixer != null && this.uiGroup != null")]
@@ -129,6 +132,14 @@ namespace Lab5Games
             PlayerPrefs.SetFloat(KEY_MUSIC_VOLUME, MusicVolume);
             PlayerPrefs.SetFloat(KEY_SFX_VOLUME, SFXVolume);
             PlayerPrefs.SetFloat(KEY_UI_VOLUME, UIVolume);
+        }
+
+        public void SetMute(bool mute)
+        {
+            IsMute = mute;
+
+            foreach (var sound in _playingSounds)
+                sound.AudioSource.mute = mute;
         }
 
         public void StopAll()
@@ -181,6 +192,8 @@ namespace Lab5Games
 
             sound.Play(clip, volume, pitch, pan);
             _playingSounds.Add(sound);
+
+            sound.AudioSource.mute = IsMute;
 
             return sound;
         }
