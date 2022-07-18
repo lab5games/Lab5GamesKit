@@ -2,7 +2,8 @@
     "name": "Lab5Games.Editor",
     "rootNamespace": "Lab5Games.Editor",
     "references": [
-        "GUID:4a02cdf178d08b44fa3c3d0003226be4"
+        "GUID:4a02cdf178d08b44fa3c3d0003226be4",
+        "GUID:478a2357cc57436488a56e564b08d223"
     ],
     "includePlatforms": [
         "Editor"

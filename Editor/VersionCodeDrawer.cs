@@ -10,7 +10,6 @@ namespace Lab5Games.Editor
     public class VersionCodeDrawer : OdinValueDrawer<VersionCode>
     {
         string displayVersion;
-        object key = new object();
 
         InspectorProperty property_Major;
         InspectorProperty property_Minor;
