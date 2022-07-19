@@ -7,15 +7,15 @@ using Sirenix.OdinInspector.Editor;
 
 namespace Lab5Games.Editor
 {
-    public class ProjectTools : OdinEditorWindow
+    public class CreateFolders : OdinEditorWindow
     {
         [ShowInInspector]
         public static string projectName = "PROJECT_NAME";
 
-        [MenuItem("Assets/Create Default Folders", priority =0)]
+        [MenuItem("Tools/Lab5Games/Create Default Folders", priority =0)]
         static void OpenWindow()
         {
-            var window = GetWindow<ProjectTools>();
+            var window = GetWindow<CreateFolders>();
 
             window.position = new Rect(Screen.width / 2, Screen.height / 2, 400, 150);
             window.ShowPopup();

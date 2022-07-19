@@ -7,7 +7,7 @@ using HandleUtility = UnityEditor.HandleUtility;
 
 namespace Lab5Games
 {
-    public static class GizmosEx
+    public static class GizmosUtils
     {
 		public struct ColorScope : System.IDisposable
 		{
