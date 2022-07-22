@@ -7,6 +7,8 @@ namespace Lab5Games
     {
         public float value;
 
+        public static implicit operator float(FloatAction action) => action.value;
+
         public void Reset()
         {
             value = 0f;

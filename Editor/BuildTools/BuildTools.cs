@@ -175,6 +175,8 @@ namespace Lab5Games.Editor
             {
                 string apkName = PlayerSettings.productName + ".apk";
                 options.locationPathName = Path.Combine("Builds", target.ToString(), apkName);
+
+                PlayerSettings.Android.bundleVersionCode = PlayerSettings.Android.bundleVersionCode + 1;
             }
             else
             {

@@ -45,6 +45,8 @@ namespace Lab5Games
         bool previouseStarted;
         bool previouseCanceled;
 
+        public static implicit operator bool(BooleanAction action) => action.value;
+
         public void Reset()
         {
             value = false;

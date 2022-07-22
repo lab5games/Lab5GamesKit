@@ -7,6 +7,8 @@ namespace Lab5Games
     {
         public Vector2 value;
 
+        public static implicit operator Vector2(Vector2Action action) => action.value;
+
         public void Reset()
         {
             value = Vector2.zero;
