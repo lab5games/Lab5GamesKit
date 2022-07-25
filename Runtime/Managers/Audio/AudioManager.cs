@@ -17,9 +17,6 @@ namespace Lab5Games
         public const string KEY_SFX_VOLUME = "SFX_Volume";
         public const string KEY_UI_VOLUME = "UI_Volume";
 
-        [ShowInInspector, PropertyOrder(-1), ReadOnly]
-        public bool IsMute { get; private set; } = false;
-
         [SerializeField]
         AudioMixer audioMixer;
 
@@ -134,14 +131,6 @@ namespace Lab5Games
             PlayerPrefs.SetFloat(KEY_UI_VOLUME, UIVolume);
         }
 
-        public void SetMute(bool mute)
-        {
-            IsMute = mute;
-
-            foreach (var sound in _playingSounds)
-                sound.AudioSource.mute = mute;
-        }
-
         public void StopAll()
         {
             GLogger.LogToFilter("[AudioManager] Stop all sounds.", GLogFilter.System, this);
@@ -192,8 +181,6 @@ namespace Lab5Games
 
             sound.Play(clip, volume, pitch, pan);
             _playingSounds.Add(sound);
-
-            sound.AudioSource.mute = IsMute;
 
             return sound;
         }
