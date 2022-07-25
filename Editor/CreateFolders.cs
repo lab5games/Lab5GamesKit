@@ -44,10 +44,9 @@ namespace Lab5Games.Editor
                 "Level/Scenes",
                 "Level/Settings",
                 "Level/Scriptables",
-                "Level/ThirdParty",
+                "Level/UI",
 
-                "Level/UI/Assets",
-                "Level/UI/Icon",
+                "ThridParty"
             };
 
             if (string.IsNullOrEmpty(projectName))
