@@ -62,6 +62,11 @@ namespace Lab5Games
             return sb.ToString();
         }
 
+        public static int Reverse(this int x)
+        {
+            return ~x;
+        }
+
         public static int SetBit(this int x, int pos, int flag)
         {
             if (pos < 0 || pos > 32)
@@ -87,6 +92,11 @@ namespace Lab5Games
                 .ToArray());
 
             return Convert.ToByte(str, 2);
+        }
+
+        public static byte Reverse(this byte x)
+        {
+            return (byte)(~x);
         }
 
         public static byte SetBit(this byte x, int pos, int flag)
