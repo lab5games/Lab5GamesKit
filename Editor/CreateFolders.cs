@@ -46,7 +46,7 @@ namespace Lab5Games.Editor
                 "Level/Scriptables",
                 "Level/UI",
 
-                "ThridParty"
+                "../ThridParty"
             };
 
             if (string.IsNullOrEmpty(projectName))
