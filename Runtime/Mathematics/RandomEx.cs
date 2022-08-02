@@ -19,6 +19,11 @@ namespace Lab5Games
             return Random.Range(min, max);
         }
 
+        public static int Next(int min, int max)
+        {
+            return Random.Range(min, max);
+        }
+
         public static float NextExponent(float lamda)
         {
             float y = Next();

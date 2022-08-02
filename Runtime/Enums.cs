@@ -1,14 +1,6 @@
 ﻿
 namespace Lab5Games
 {
-
-    public enum SystemStatus
-    {
-        None,
-        Success,
-        Failure
-    }
-
     public enum ScheduleStatus
     {
         Ready,
