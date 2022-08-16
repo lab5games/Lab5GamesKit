@@ -29,6 +29,7 @@ namespace Lab5Games.Editor
                 "Art/Materials",
                 "Art/Models",
                 "Art/Textures",
+                "Art/UI",
 
                 "Audio/Music",
                 "Audio/Sound",
@@ -39,12 +40,11 @@ namespace Lab5Games.Editor
 
                 "Docs",
 
-                "Level/Fonts",
-                "Level/Prefabs",
-                "Level/Scenes",
-                "Level/Settings",
-                "Level/Scriptables",
-                "Level/UI",
+                "Game/Fonts",
+                "Game/Prefabs",
+                "Game/Scenes",
+                "Game/Settings",
+                "Game/Scriptables",
 
                 "../ThridParty"
             };
