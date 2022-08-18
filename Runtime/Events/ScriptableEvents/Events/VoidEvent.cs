@@ -13,7 +13,7 @@ namespace Lab5Games.Events
     public class UnityVoidEvent : UnityEvent<Void> { }
 
     [CreateAssetMenu(fileName ="New Void Event", menuName =MENU_NAME + "Void Event")]
-    public class ScriptableVoidEvent : ScriptableEvent<Void>
+    public class VoidEvent : ScriptableEvent<Void>
     {
         public void Raise() => Raise(Void.Default);
     }

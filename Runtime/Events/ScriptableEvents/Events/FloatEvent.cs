@@ -7,5 +7,5 @@ namespace Lab5Games.Events
     public class UnityFloatEvent : UnityEvent<float> { }
 
     [CreateAssetMenu(fileName ="New Float Event", menuName =MENU_NAME + "Float Event")]
-    public class ScriptableFloatEvent : ScriptableEvent<float> { }
+    public class FloatEvent : ScriptableEvent<float> { }
 }

@@ -1,3 +1,4 @@
+#if ODIN_INSPECTOR
 using UnityEngine;
 using UnityEditor;
 using System.IO;
@@ -71,3 +72,4 @@ namespace Lab5Games.Editor
         }
     }
 }
+#endif

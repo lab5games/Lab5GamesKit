@@ -1,3 +1,4 @@
+#if ODIN_INSPECTOR
 using UnityEngine;
 using UnityEditor;
 using Sirenix.OdinInspector;
@@ -205,3 +206,4 @@ namespace Lab5Games.Editor
 
     }
 }
+#endif

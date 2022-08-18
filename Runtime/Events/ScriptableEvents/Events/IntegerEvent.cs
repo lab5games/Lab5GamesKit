@@ -7,5 +7,5 @@ namespace Lab5Games.Events
     public class UnityIntegerEvent : UnityEvent<int> { }
 
     [CreateAssetMenu(fileName ="New Integer Event", menuName =MENU_NAME + "Integer Event")]
-    public class ScriptableIntegerEvent : ScriptableEvent<int> { }
+    public class IntegerEvent : ScriptableEvent<int> { }
 }

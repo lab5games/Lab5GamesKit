@@ -7,5 +7,5 @@ namespace Lab5Games.Events
     public class UnityBooleanEvent : UnityEvent<bool> { }
 
     [CreateAssetMenu(fileName ="New Boolean Event", menuName =MENU_NAME + "Boolean Event")]
-    public class ScriptableBooleanEvent : ScriptableEvent<bool> { }
+    public class BooleanEvent : ScriptableEvent<bool> { }
 }
