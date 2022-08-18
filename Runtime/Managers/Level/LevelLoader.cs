@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+
+#if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
+#endif
 
 namespace Lab5Games
 {
@@ -13,8 +16,10 @@ namespace Lab5Games
         
         LevelOperation _op;
 
+#if ODIN_INSPECTOR
         [PropertySpace(SpaceBefore =20)]
         [ShowIf("loadMode", LoadSceneMode.Additive)]
+#endif
         [SerializeField] UnityEvent onLoaded;
 
         public void Load()

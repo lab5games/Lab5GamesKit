@@ -1,8 +1,10 @@
-﻿using System.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+
+#if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
+#endif
 
 namespace Lab5Games
 {
@@ -20,10 +22,12 @@ namespace Lab5Games
         [SerializeField]
         AudioMixer audioMixer;
 
+#if ODIN_INSPECTOR
         [ShowInInspector, ShowIf("@this.audioMixer != null")] 
         [PropertyOrder(1), PropertyRange(0f, 1f)]
         [InfoBox("Exposed parameter named 'Master_Volume'")]
         [PropertySpace(SpaceAfter =20)]
+#endif
         public float MasterVolume
         {
             get => _volume_master;
@@ -37,15 +41,19 @@ namespace Lab5Games
             }
         }
 
+#if ODIN_INSPECTOR
         [PropertyOrder(2)]
-        [TabGroup("Music"), SerializeField]
+        [TabGroup("Music")]
         [LabelText("Group"), ShowIf("@this.audioMixer != null")]
-        AudioMixerGroup musicGroup;
+#endif
+        [SerializeField] AudioMixerGroup musicGroup;
 
+#if ODIN_INSPECTOR
         [PropertyOrder(2), PropertyRange(0f, 1f)]
         [TabGroup("Music"), ShowInInspector]
         [InfoBox("Exposed parameter named 'Music_Volume'")]
         [LabelText("Volume"), ShowIf("@this.audioMixer != null && this.musicGroup != null")]
+#endif
         public float MusicVolume
         {
             get => _volume_music;
@@ -59,15 +67,19 @@ namespace Lab5Games
             }
         }
 
+#if ODIN_INSPECTOR
         [PropertyOrder(3)]
-        [TabGroup("SFX"), SerializeField]
+        [TabGroup("SFX")]
         [LabelText("Group"), ShowIf("@this.audioMixer != null")]
-        AudioMixerGroup sfxGroup;
+#endif
+        [SerializeField] AudioMixerGroup sfxGroup;
 
+#if ODIN_INSPECTOR
         [PropertyOrder(3), PropertyRange(0f, 1f)]
         [TabGroup("SFX"), ShowInInspector]
         [InfoBox("Exposed parameter named 'SFX_Volume'")]
         [LabelText("Volume"), ShowIf("@this.audioMixer != null && this.sfxGroup != null")]
+#endif
         public float SFXVolume
         {
             get => _volume_sfx;
@@ -81,15 +93,19 @@ namespace Lab5Games
             }
         }
 
+#if ODIN_INSPECTOR
         [PropertyOrder(4)]
-        [TabGroup("UI"), SerializeField]
+        [TabGroup("UI")]
         [LabelText("Group"), ShowIf("@this.audioMixer != null")]
-        AudioMixerGroup uiGroup;
+#endif
+        [SerializeField] AudioMixerGroup uiGroup;
 
+#if ODIN_INSPECTOR
         [PropertyOrder(4), PropertyRange(0f, 1f)]
         [TabGroup("UI"), ShowInInspector]
         [InfoBox("Exposed parameter named 'UI_Volume'")]
         [LabelText("Volume"), ShowIf("@this.audioMixer != null && this.uiGroup != null")]
+#endif
         public float UIVolume
         {
             get => _volume_ui;
