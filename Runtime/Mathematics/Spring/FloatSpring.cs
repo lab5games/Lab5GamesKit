@@ -6,6 +6,8 @@ namespace Lab5Games.Mathematics
     {
         protected float SpringTime;
 
+        public float StoppingThreshold { get; set; } = .01f;
+
         public override void Reset()
         {
             SpringTime = 0f;
@@ -72,6 +74,11 @@ namespace Lab5Games.Mathematics
 
             CurrentValue = EndValue - x;
             CurrentVelocity = v;
+
+            if(EndValue - CurrentValue < StoppingThreshold)
+            {
+                CurrentValue = EndValue;
+            }
 
             return CurrentValue;
         }
