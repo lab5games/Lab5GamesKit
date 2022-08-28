@@ -3,14 +3,14 @@ using UnityEngine;
 
 namespace Lab5Games
 {
-    public class LevelOperation : Schedule, IAwaitable<LevelOperation>, IAwaiter
+    public class LevelAsync : Schedule, IAwaitable<LevelAsync>, IAwaiter
     {
         AsyncOperation _asyncOp;
 
         bool _levelLoaded;
         bool _visibleOnLoaded;
 
-        public event Action<LevelOperation> onLoaded;
+        public event Action<LevelAsync> onLoaded;
 
         public string LevelName { get; private set; }
 
@@ -33,7 +33,7 @@ namespace Lab5Games
             }
         }
 
-        public LevelOperation(string levelName, AsyncOperation asyncOp, bool visibleOnLoaded)
+        public LevelAsync(string levelName, AsyncOperation asyncOp, bool visibleOnLoaded)
         {
             if (asyncOp == null)
                 throw new ArgumentNullException(nameof(asyncOp));
@@ -119,7 +119,7 @@ namespace Lab5Games
             onCompleted += continuation;
         }
 
-        public LevelOperation GetAwaiter()
+        public LevelAsync GetAwaiter()
         {
             return this;
         }

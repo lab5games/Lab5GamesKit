@@ -19,32 +19,32 @@ namespace Lab5Games
 
         private static void OnLevelUnloaded(Scene levelScene)
         {
-            GLogger.LogToFilter($"[LevelManager] Level({levelScene}) unloaded", GLogFilter.System);
+            GLogger.LogToFilter($"[LevelManager] Level({levelScene.name}) unloaded", GLogFilter.System);
         }
 
         private static void OnLevelLoaded(Scene levelScene, LoadSceneMode loadMode)
         {
-            GLogger.LogToFilter($"[LevelManager] Level({levelScene}) loaded", GLogFilter.System);
+            GLogger.LogToFilter($"[LevelManager] Level({levelScene.name}) loaded", GLogFilter.System);
         }
 
-        public static LevelOperation LoadLevel(string levelName, LoadSceneMode mode, bool visibleOnLoaded = true)
+        public static LevelAsync LoadLevel(string levelName, LoadSceneMode mode, bool visibleOnLoaded = true)
         {
             GLogger.LogToFilter($"[LevelManager] Load {levelName} level...", GLogFilter.System);
 
             var asyncOp = SceneManager.LoadSceneAsync(levelName, mode);
-            LevelOperation levelOp = new LevelOperation(levelName, asyncOp, visibleOnLoaded);
+            LevelAsync levelOp = new LevelAsync(levelName, asyncOp, visibleOnLoaded);
 
             levelOp.Start();
 
             return levelOp;
         }
 
-        public static LevelOperation LoadLevel(LevelReference levelRef, LoadSceneMode mode, bool visibleOnLoaded = true)
+        public static LevelAsync LoadLevel(LevelReference levelRef, LoadSceneMode mode, bool visibleOnLoaded = true)
         {
             GLogger.LogToFilter($"[LevelManager] Load {levelRef.LevelName} level...", GLogFilter.System);
 
             var asyncOp = SceneManager.LoadSceneAsync(levelRef.LevelName, mode);
-            LevelOperation levelOp = new LevelOperation(levelRef.LevelName, asyncOp, visibleOnLoaded);
+            LevelAsync levelOp = new LevelAsync(levelRef.LevelName, asyncOp, visibleOnLoaded);
 
             levelOp.Start();
 

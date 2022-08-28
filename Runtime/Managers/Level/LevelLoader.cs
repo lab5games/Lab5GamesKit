@@ -14,7 +14,7 @@ namespace Lab5Games
         [SerializeField] LoadSceneMode loadMode = LoadSceneMode.Single;
         [SerializeField] LevelReference levelRef;
         
-        LevelOperation _op;
+        LevelAsync _op;
 
 #if ODIN_INSPECTOR
         [PropertySpace(SpaceBefore =20)]
