@@ -74,7 +74,7 @@ namespace Lab5Games
 
             public bool IsCompleted => _handle.IsDone;
 
-            public T GetResult() => _handle.Result;
+            public T Result => _handle.Result;
 
             public void OnCompleted(Action continuation)
             {

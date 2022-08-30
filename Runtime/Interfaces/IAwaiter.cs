@@ -11,6 +11,6 @@ namespace Lab5Games
     public interface IAwaiter<TResult> : INotifyCompletion
     {
         bool IsCompleted { get; }
-        TResult GetResult();
+        TResult Result { get; }
     }
 }

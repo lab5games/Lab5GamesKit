@@ -1,9 +1,10 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Lab5Games
 {
-    public class LevelAsync : Schedule, IAwaitable<LevelAsync>, IAwaiter
+    public class LevelAsync : Schedule, IAwaitable<LevelAsync, Scene>, IAwaiter<Scene>
     {
         AsyncOperation _asyncOp;
 
@@ -30,6 +31,14 @@ namespace Lab5Games
             get
             {
                 return Status == ScheduleStatus.Completed || Status == ScheduleStatus.Canceled;
+            }
+        }
+
+        public Scene Result
+        {
+            get
+            {
+                return SceneManager.GetSceneByName(LevelName);
             }
         }
 
@@ -110,10 +119,6 @@ namespace Lab5Games
             }
         }
 
-        public void GetResult()
-        {
-        }
-
         public void OnCompleted(Action continuation)
         {
             onCompleted += continuation;
@@ -122,6 +127,6 @@ namespace Lab5Games
         public LevelAsync GetAwaiter()
         {
             return this;
-        }
+        }   
     }
 }
