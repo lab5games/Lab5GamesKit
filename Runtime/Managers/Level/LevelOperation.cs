@@ -4,14 +4,14 @@ using UnityEngine.SceneManagement;
 
 namespace Lab5Games
 {
-    public class LevelAsync : Schedule, IAwaitable<LevelAsync, Scene>, IAwaiter<Scene>
+    public class LevelOperation : Schedule, IAwaitable<LevelOperation, Scene>, IAwaiter<Scene>
     {
         AsyncOperation _asyncOp;
 
         bool _levelLoaded;
         bool _visibleOnLoaded;
 
-        public event Action<LevelAsync> onLoaded;
+        public event Action<LevelOperation> onLoaded;
 
         public string LevelName { get; private set; }
 
@@ -34,7 +34,7 @@ namespace Lab5Games
             }
         }
 
-        public LevelAsync(string levelName, AsyncOperation asyncOp, bool visibleOnLoaded)
+        public LevelOperation(string levelName, AsyncOperation asyncOp, bool visibleOnLoaded)
         {
             if (asyncOp == null)
                 throw new ArgumentNullException(nameof(asyncOp));
@@ -66,22 +66,22 @@ namespace Lab5Games
 
         public override void Complete()
         {
-            GLogger.LogAsType("This operation is no used!", GLogType.Warning);
+            GLogger.LogAsType("This function is no used!", GLogType.Warning);
         }
 
         public override void Cancel()
         {
-            GLogger.LogAsType("This operation is no used!", GLogType.Warning);
+            GLogger.LogAsType("This function is no used!", GLogType.Warning);
         }
 
         public override void Pause()
         {
-            GLogger.LogAsType("This operation is no used!", GLogType.Warning);
+            GLogger.LogAsType("This function is no used!", GLogType.Warning);
         }
 
         public override void Unpause()
         {
-            GLogger.LogAsType("This operation is no used!", GLogType.Warning);
+            GLogger.LogAsType("This function is no used!", GLogType.Warning);
         }
 
         public void SetVisible()
@@ -116,14 +116,14 @@ namespace Lab5Games
             onCompleted += continuation;
         }
 
-        public LevelAsync GetAwaiter()
+        public LevelOperation GetAwaiter()
         {
             return this;
         }   
 
         public Scene GetResult()
         {
-            return SceneManager.GetSceneByName(LevelName);
+            return SceneManager.GetSceneByName(System.IO.Path.GetFileName(LevelName));
         }
     }
 }

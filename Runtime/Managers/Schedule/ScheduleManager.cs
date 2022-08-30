@@ -11,7 +11,7 @@ namespace Lab5Games
         float _dt;
 
         List<Schedule> _scheduleList = new List<Schedule>();
-        List<LevelAsync> _levelOperationList = new List<LevelAsync>();
+        List<LevelOperation> _levelOperationList = new List<LevelOperation>();
 
         public void StopAll()
         {
@@ -39,7 +39,7 @@ namespace Lab5Games
             }
         }
 
-        internal void AddLevelOperation(LevelAsync levelOp)
+        internal void AddLevelOperation(LevelOperation levelOp)
         {
             _levelOperationList.Add(levelOp);
         }
