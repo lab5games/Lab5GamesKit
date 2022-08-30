@@ -123,7 +123,7 @@ namespace Lab5Games
 
         public Scene GetResult()
         {
-            return SceneManager.GetSceneByName(System.IO.Path.GetFileName(LevelName));
+            return SceneManager.GetSceneByName(System.IO.Path.GetFileNameWithoutExtension(LevelName));
         }
     }
 }
