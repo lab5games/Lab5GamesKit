@@ -34,14 +34,6 @@ namespace Lab5Games
             }
         }
 
-        public Scene Result
-        {
-            get
-            {
-                return SceneManager.GetSceneByName(LevelName);
-            }
-        }
-
         public LevelAsync(string levelName, AsyncOperation asyncOp, bool visibleOnLoaded)
         {
             if (asyncOp == null)
@@ -128,5 +120,10 @@ namespace Lab5Games
         {
             return this;
         }   
+
+        public Scene GetResult()
+        {
+            return SceneManager.GetSceneByName(LevelName);
+        }
     }
 }
