@@ -13,9 +13,9 @@ namespace Lab5Games
         List<Schedule> _scheduleList = new List<Schedule>();
         List<LevelOperation> _levelOperationList = new List<LevelOperation>();
 
-        public void StopAll()
+        public void ClearAll()
         {
-            GLogger.LogToFilter("[ScheduleManager] Stop all schedules.", GLogFilter.System, this);
+            GLogger.LogToFilter("[ScheduleManager] Clear all schedules.", GLogFilter.System, this);
 
 
             foreach (var schedule in _scheduleList)
@@ -43,7 +43,11 @@ namespace Lab5Games
         {
             _levelOperationList.Add(levelOp);
         }
-        
+
+        private void Start()
+        {
+            
+        }
 
         void Update()
         {

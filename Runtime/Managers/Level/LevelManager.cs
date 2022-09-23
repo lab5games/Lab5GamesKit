@@ -7,8 +7,8 @@ namespace Lab5Games
 {
     public static class LevelManager 
     {
-        public static Action<string> levelLoaded;
-        public static Action<string> levelUnloaded; 
+        public static event Action<string> levelLoaded;
+        public static event Action<string> levelUnloaded; 
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void Initialzie()

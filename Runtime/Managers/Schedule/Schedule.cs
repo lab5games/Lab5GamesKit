@@ -18,6 +18,8 @@ namespace Lab5Games
     {
         public ScheduleStatus Status { get; protected set; }
 
+        public bool IsPersistent { get; set; } = false;
+
         public abstract void Tick(float dt);
 
         public event Action onCompleted;
